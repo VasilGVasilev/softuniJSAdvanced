@@ -313,7 +313,9 @@
 //     "Score":6}]`
 // )
 
-
+// NB lambda functions dont work with this so in the following:
+// use car.currentTrack instead of this.currentTrack, because lambda functions 
+// save the context in which they are created 
 
 // function createAssemblyLine() {
 
