@@ -115,10 +115,76 @@
 
 
 
-function heroicInvent(){
+// function heroicInvent(arr){
+//     let newArr = [];
+//     arr.forEach(hero => {
+//         let [name, level, items] = hero.split(' / ');
+//         level = Number(level);
+//         items = items ? items.split(', ') : [];
+//         // if(items){
+//         //     items = items.split(', ')
+//         // } else {
+//         //     items = [];
+//         // }
+//         newArr.push({name, level, items})
+//     });
+//     console.log(JSON.stringify(newArr));
+// }
+// heroicInvent(['Isacc / 25 / Apple, GravityGun',
+// 'Derek / 12 / BarrelVest, DestructionSword',
+// 'Hes / 1 / Desolator, Sentinel, Antara']
+// )
 
+// note difference between the idea to make
+// obj = {}
+// obj[town] = price;
+// resultObj[product]  = obj;
+
+// which logs out:
+
+// {
+//     'Sample Product': { '1000': 'New York' },
+//     Orange: { '2': 'Sofia' },
+//     Peach: { '1': 'Sofia' },
+//     Burger: { '10': 'New York' }
+// }
+
+// and resultObj[product] = {price, town}
+
+// which logs out:
+
+// {
+//     'Sample Product': { town: 'Sample Town', price: 1000 },
+//     Orange: { town: 'Sample Town', price: 2 },
+//     Peach: { town: 'Sample Town', price: 1 },
+//     Burger: { town: 'New York', price: 10 }
+// }
+
+function lowestPrices(input){
+    let resultObj = {};
+    for (let i = 0; i < input.length; i++){
+        let [town, product, price] = input[i].split(' | ');
+        price = Number(price)
+    
+        if(!resultObj.hasOwnProperty(product)){
+            resultObj[product] = {town, price};
+            console.log(resultObj[product][price]);
+        } 
+    }
+  
+    // for (let key in resultObj){
+    //     for (let [pric, tow] of Object.entries(resultObj[key])){
+    //         console.log(`${key} -> ${pric} (${tow})`);
+    //     }
+        
+    // }
+ 
 }
-heroicInvent(['Isacc / 25 / Apple, GravityGun',
-'Derek / 12 / BarrelVest, DestructionSword',
-'Hes / 1 / Desolator, Sentinel, Antara']
-['Jake / 1000 / Gauss, HolidayGrenade'])
+lowestPrices(['Sample Town | Sample Product | 1000',
+'Sample Town | Orange | 2',
+'Sample Town | Peach | 1',
+'Sofia | Orange | 3',
+'Sofia | Peach | 2',
+'New York | Sample Product | 1000.1',
+'New York | Burger | 10']
+);
