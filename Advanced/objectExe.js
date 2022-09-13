@@ -160,31 +160,114 @@
 //     Burger: { town: 'New York', price: 10 }
 // }
 
-function lowestPrices(input){
-    let resultObj = {};
-    for (let i = 0; i < input.length; i++){
-        let [town, product, price] = input[i].split(' | ');
-        price = Number(price)
+// resultObj[product].price vs result[product]['price'] bracket notation requires to put a string in,
+// puting in the variable directly results in undefined
+
+
+// function lowestPrices(input){
+//     let resultObj = {};
+//     for (let i = 0; i < input.length; i++){
+//         let text = input[i];
+//         let productInfo = text.split(' | ');
+//         let town = productInfo[0];
+//         let product = productInfo[1];
+//         let price = Number(productInfo[2]);
+//         if(!resultObj.hasOwnProperty(product)){
+//             resultObj[product] = {town, price};
+//         }
+//         if(price <= resultObj[product].price){
+//             resultObj[product] = {town, price}
+//         }
+//     }
+//     let productNames = Object.keys(resultObj);
+//     for (let i = 0; i < productNames.length; i++){
+//         let key = productNames[i];
+//        console.log(`${key} -> ${resultObj[key].price} (${resultObj[key].town})`);
+//     }
+// }
+// lowestPrices(['Sample Town | Sample Product | 1000',
+// 'Sample Town | Orange | 2',
+// 'Sample Town | Peach | 1',
+// 'Sofia | Orange | 3',
+// 'Sofia | Peach | 2',
+// 'New York | Sample Product | 1000.1',
+// 'New York | Burger | 10']
+// );
+
+
+
+// function storeCatalogue(input) {
+//     let obj = {};
+//     for (let line of input){
+//         let [name, price] = line.split(' : ')
+//         let letter = name[0];
+//         if(!obj.hasOwnProperty(letter)){
+//             obj[letter] = {};
+//         }
+//         obj[letter][name] = price;
+//     }
+
+//     let sortedLetters = Object.keys(obj).sort((a,b) => a.localeCompare(b));
+//     for (let letter of sortedLetters){   
+//         console.log(letter);
+//         let letterNames = Object.keys(obj[letter]).sort((a,b)=>a.localeCompare(b))
+//         for (let names of letterNames){
+//             console.log(`  ${names}: ${obj[letter][names]}`);
+//         }
+//     }
     
-        if(!resultObj.hasOwnProperty(product)){
-            resultObj[product] = {town, price};
-            console.log(resultObj[product][price]);
-        } 
-    }
-  
-    // for (let key in resultObj){
-    //     for (let [pric, tow] of Object.entries(resultObj[key])){
-    //         console.log(`${key} -> ${pric} (${tow})`);
-    //     }
+// }
+// storeCatalogue(['Appricot : 20.4',
+// 'Fridge : 1500',
+// 'TV : 1499',
+// 'Deodorant : 10',
+// 'Boiler : 300',
+// 'Apple : 1.25',
+// 'Anti-Bug Spray : 15',
+// 'T-Shirt : 10']
+// )
+
+// function townsToJSON(input){
+//     let result = [];
+//     class Town {
+//         constructor(name, latitude, longitude){
+//             this.Town = name;
+//             this.Latitude = Number(latitude);
+//             this.Longitude = Number(longitude);
+//         }
+//     }
+//     for (let index = 1; index < input.length; index++) {
+//         const arr = input[index].split('|').map(t=>t.trim()).filter(e => e.length > 0);
+//         let townName = arr[0];
+//         let lat = Number(arr[1]).toFixed(2);
+//         let long = Number(arr[2]).toFixed(2); 
+//         const oneTownInstance = new Town(townName, lat, long);
+//         result.push(oneTownInstance);
         
-    // }
- 
-}
-lowestPrices(['Sample Town | Sample Product | 1000',
-'Sample Town | Orange | 2',
-'Sample Town | Peach | 1',
-'Sofia | Orange | 3',
-'Sofia | Peach | 2',
-'New York | Sample Product | 1000.1',
-'New York | Burger | 10']
-);
+//     }
+//     return JSON.stringify(result);
+// }
+// townsToJSON(['| Town | Latitude | Longitude |',
+// '| Sofia | 42.696552 | 23.32601 |',
+// '| Beijing | 39.913818 | 116.363625 |']
+// )
+
+
+// function rectangle(width, height, color){
+//     class Rectangle{
+//         constructor(width, heigth, color){
+//             this.width = width;
+//             this. height = height;
+//             this.color = color[0].toUpperCase() + color.slice(1);
+//         }
+//         calcArea(){
+//             return this.height * this.width;
+//         }
+//     }
+//     return new Rectangle(width, height, color)
+// }
+// let rect = rectangle(4, 5, 'red');
+// console.log(rect.width);
+// console.log(rect.height);
+// console.log(rect.color);
+// console.log(rect.calcArea());
