@@ -3,6 +3,7 @@ function solve() {
   let namingConv = document.getElementById('naming-convention');
   let result = document.getElementById('result');
   let arrOFText = text.split(' ');
+  // slice(1) or substring(1)
   arrOFText = arrOFText.map(e=>e[0].toUpperCase() + e.slice(1).toLowerCase());
   if (namingConv.value === 'Camel Case'){
     let newText = arrOFText.join('');
