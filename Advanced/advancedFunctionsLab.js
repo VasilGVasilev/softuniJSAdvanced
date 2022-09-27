@@ -272,30 +272,87 @@
 //  'all')
 
 
-function listPro(arr){
-    arr.forEach(element => {
-        let data = element.split(' ');
-        let command = data.shift();
-        let text = data.shift();
-        let one = forClosure();
-        one.
-    });
-    function forClosure(){
-        let state = [];
-        function add(t){
-            state.push(t);
-        }
-        function remove(t){
-            state.filter(e => e !== t)
-        }
-        function print(t){
-            console.log(state.join(','));
-        }
-        return {
-            add,
-            remove,
-            print
-        }
-    }
-}
-listPro(['add hello', 'add again', 'remove hello', 'add again', 'print'])
+// function listPro(arr){
+//     // let state = [];
+//     // arr.forEach(element => {
+//     //     if (element === 'print'){
+//     //         console.log(state.join(','));
+//     //     } else {
+//     //         let data = element.split(' ');
+//     //         let command = data.shift();
+//     //         let text = data.shift();
+//     //         if (command === 'add'){
+//     //             state.push(text);
+//     //         } else if (command === 'remove'){
+//     //             state = state.filter(e => e !== text)
+//     //         }
+//     //     }
+//     // });
+//     let state = [];
+//     function closureExm(){
+        
+//         function add(text){
+//             state.push(text);
+//         }
+//         function remove(text){
+//             state = state.filter(e => e !== text);
+//         }
+//         return {
+//             add,
+//             remove
+//         }
+//     }
+
+//     for (let el of arr){
+//         if (el === 'print'){
+//             console.log(state.join(','));
+//         } else {
+//             let data = el.split(' ');
+//             let command = data.shift();
+//             let text = data.shift();
+//             let closureVar = closureExm();
+//             closureVar[command](text);
+//         }
+//     }
+// }
+// listPro(['add hello', 'add again', 'remove hello', 'add again', 'print'])
+
+
+
+// function cars(input){
+//     input.forEach(element => {
+//         let element = input.split(' ');
+//         let closerVar = closureTmp();
+//         closureTmp
+
+//         function closureTmp(){
+//             function create(){
+
+//             }
+//             function inherit(){
+
+//             }
+//             function set(){
+
+//             }
+//             function print(){
+
+//             }
+//             return {
+//                 create,
+//                 inherit,
+//                 set,
+//                 print
+//             }
+//         }
+//     });
+    
+// }
+// cars(['create c1',
+// 'create c2 inherit c1',
+// 'set c1 color red',
+// 'set c2 model new',
+// 'print c1',
+// 'print c2'])
+
+// DO LAST EXE 7!!!!!!!!!!!!!!!!!!!
