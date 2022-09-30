@@ -131,81 +131,81 @@
 // add(1)(6)(-3)
 
 
-function solve(){
+// function solve(){
     
-    const recipes = {
-        apple: {
-            carbohydrate: 1,
-            flavour: 2
-        },
-        lemonade: {
-            carbohydrate: 10,
-            flavour: 20
-        },
-        burger: {
-            carbohydrate: 5,
-            fat: 7,
-            flavour: 3
-        },
-        eggs: {
-            protein: 5,
-            fat: 1,
-            flavour: 1
-        },
-        turkey: {
-            protein: 10,
-            carbohydrate: 10,
-            fat: 10,
-            flavour: 10
-        }
-    }
+//     const recipes = {
+//         apple: {
+//             carbohydrate: 1,
+//             flavour: 2
+//         },
+//         lemonade: {
+//             carbohydrate: 10,
+//             flavour: 20
+//         },
+//         burger: {
+//             carbohydrate: 5,
+//             fat: 7,
+//             flavour: 3
+//         },
+//         eggs: {
+//             protein: 5,
+//             fat: 1,
+//             flavour: 1
+//         },
+//         turkey: {
+//             protein: 10,
+//             carbohydrate: 10,
+//             fat: 10,
+//             flavour: 10
+//         }
+//     }
 
-    const stock = { 
-        protein: 0,
-        carbohydrate: 0,
-        fat: 0,
-        flavour: 0
-    };
+//     const stock = { 
+//         protein: 0,
+//         carbohydrate: 0,
+//         fat: 0,
+//         flavour: 0
+//     };
 
-    const commands = { 
-        restock,
-        prepare,
-        report
-    }
+//     const commands = { 
+//         restock,
+//         prepare,
+//         report
+//     }
 
-    return manager; // hoisting
+//     return manager; // hoisting
 
-    function manager(line){
-        const [command, param, qty] = line.split(' ');
-        return commands[command] (param, qty);
-    }
+//     function manager(line){
+//         const [command, param, qty] = line.split(' ');
+//         return commands[command] (param, qty);
+//     }
 
-    function restock(type, qty){
-        stock[type] += Number(qty);
-        return 'Success';
-    }
+//     function restock(type, qty){
+//         stock[type] += Number(qty);
+//         return 'Success';
+//     }
 
-    function prepare(recipeAsString, qty){
-        qty = Number(qty);
-        // find recipe 
-        const recipe = Object.entries(recipes[recipeAsString]); //we need to make a copy so to not modify the actual object with recepies
+//     function prepare(recipeAsString, qty){
+//         qty = Number(qty);
+//         // find recipe 
+//         const recipe = Object.entries(recipes[recipeAsString]); //we need to make a copy so to not modify the actual object with recepies
 
-        // calc total ingredient quant
-        recipe.forEach(ingredient => ingredient[1] *= qty) // recipe Ex. after being made into an array via Object.entries [['carbohydrate', 10], ['flavour', 20]]
+//         // calc total ingredient quant
+//         recipe.forEach(ingredient => ingredient[1] *= qty) // recipe Ex. after being made into an array via Object.entries [['carbohydrate', 10], ['flavour', 20]]
 
-        // compare one by one with stock
-        for (let [ingredient, required] of recipe){
-            if (stock[ingredient] < required){
-                return `Error: not enough ${ingredient} in stock`;
-            }
-        }  //dont use foreach because it cannot be stopped without throwing an exception
+//         // compare one by one with stock
+//         for (let [ingredient, required] of recipe){
+//             if (stock[ingredient] < required){
+//                 return `Error: not enough ${ingredient} in stock`;
+//             }
+//         }  //dont use foreach because it cannot be stopped without throwing an exception
 
-        // otherwise, substract quantities from stock and return success
-        recipe.forEach(([ingredient, required]) => stock[ingredient] -= required);
-        return 'Success';
-    }
+//         // otherwise, substract quantities from stock and return success
+//         recipe.forEach(([ingredient, required]) => stock[ingredient] -= required);
+//         return 'Success';
+//     }
 
-    function report(){
-        return `protein=${stock.protein} carbohydrate=${stock.carbohydrate} fat=${stock.fat} flavour=${stock.flavour}`
-    }
-}
+//     function report(){
+//         return `protein=${stock.protein} carbohydrate=${stock.carbohydrate} fat=${stock.fat} flavour=${stock.flavour}`
+//     }
+// }

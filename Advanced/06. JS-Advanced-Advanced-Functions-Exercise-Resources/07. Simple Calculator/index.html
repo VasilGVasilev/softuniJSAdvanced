@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="./style.css">
     <title>Title</title>
 </head>
-<body onload="calculator()">
+<body>
     <div class="container">
         <h1 class="title">Simple Calculator</h1>
           <p>Enter two numbers</p><br>
@@ -22,6 +22,10 @@
         <button id="sumButton" onclick="calculate.add()">Sum</button> 
         <button id="subtractButton" onclick="calculate.subtract()">Subtract</button>   
     </div>
-    <script src="./app.js"></script>
+    <script src="./app.js">
+        const calculate = calculator();
+        calculate.init('num1', 'num2', 'result'); 
+        console.log('csdc');
+    </script>
 </body>
 </html>
