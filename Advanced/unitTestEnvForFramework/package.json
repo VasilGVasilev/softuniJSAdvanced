@@ -1,0 +1,14 @@
+{
+  "name": "unittestenvforframework",
+  "version": "1.0.0",
+  "description": "Demo of unit testing frameworks",
+  "main": "unitTestLab.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "VV",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.6"
+  }
+}
