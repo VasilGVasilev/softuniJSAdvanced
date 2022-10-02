@@ -156,3 +156,5 @@
 // you can now type mocha and it will test test.js /global/
 // OR
 // set in package.json -> scripts -> test: mocha myTest.js and type npm run test /local/
+
+// either way -> export the function in myTest.js to myTest.test.js and run mocha myTest.test.js
