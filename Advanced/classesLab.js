@@ -62,31 +62,66 @@
 // onlu like this: Person.printType()
 
 
-class Circle {
-    constructor(r){
-        this.r = r;
-    }
-    radius(){
-        return this.r;
-    }
-    diameter(){
-        return this.r * 2;
-    }
-    area(){
-        return this.r ** 2 * Math.PI;
-    }
-}
+// class Circle {
+//     constructor(r){
+//         this.r = r;
+//     }
+//     get radius(){
+//         return this.r;
+//     }
+//     get diameter(){
+//         return this.r * 2;
+//     }
+//     set diameter(value){
+//         this.r = value / 2;
+//     }
+//     get area(){
+//         return this.r ** 2 * Math.PI;
+//     }
+// }
 
-const c = new Circle(2);
-console.log(c.area());
-console.log(c.radius());
-console.log(c.diameter());
-c.diameter = 1.6;
-console.log(c.area());
-console.log(c.radius());
-console.log(c.diameter());
+// let c = new Circle(2);
+// console.log(`Radius: ${c.radius}`);
+// console.log(`Diameter: ${c.diameter}`); //get diameter()
+// console.log(`Area: ${c.area}`);
+// c.diameter = 1.6; //set diameter()
+// console.log(`Radius: ${c.radius}`);
+// console.log(`Diameter: ${c.diameter}`);
+// console.log(`Area: ${c.area}`);
 
+// SET and GET - Accessories
+// set and get as a means to treat class-based objects' methods as properties
+// set - WRITE ON
+// get READ ONLY
 
+// NOTE A POSSIBLE BUG :
+// class Circle {
+//     constructor(radius){
+//         this.radius = radius;
+//     }
+//     get radius(){
+//         return this.radius;
+//     }
+//     get diameter(){
+//         return this.radius * 2;
+//     }
+// }
+// When you use the same name for the getter -> radius in constructor 
+// get overwritten but the return of the getter function refers to 
+// a this.radius which automatically refers to the name of the getter function
+// and you enter into an infinite loop
+// industry practice:
+// class Circle {
+//     constructor(radius){
+//         this._radius = radius;
+//     }
+//     get radius(){
+//         return this._radius;
+//     }
+//     get diameter(){
+//         return this._radius * 2;
+//     }
+// }
 
 
 // class Point {
