@@ -94,7 +94,11 @@
 // set - WRITE ON
 // get READ ONLY
 
-// NOTE A POSSIBLE BUG :
+
+
+
+
+// >>>>>>>>>>>>>>   NOTE A POSSIBLE BUG this.radius && get radius()
 // class Circle {
 //     constructor(radius){
 //         this.radius = radius;
@@ -110,6 +114,25 @@
 // get overwritten but the return of the getter function refers to 
 // a this.radius which automatically refers to the name of the getter function
 // and you enter into an infinite loop
+
+// class Circle {
+//     constructor(radiusValue){
+//         this.radiusKey = radiusValue;
+//     }
+//     get r(){
+//         return this.radiusKey;
+//     }
+// }
+
+// const point = new Circle(2);
+
+// console.log(point.r);
+
+// point.r goes to get r()
+// get r searches for this.radiusKey
+// get r finds this.radiusKey in constructor
+// this.radiusKey is Circle { radiusKey: radiusValue}
+
 // industry practice:
 // class Circle {
 //     constructor(radius){
@@ -122,6 +145,13 @@
 //         return this._radius * 2;
 //     }
 // }
+
+// namely:
+// create variable _radius to be key in Circle through this._radius similar to Circle._radius
+// when get radius() is triggered it returns that very variable _radius
+// if you aet it with the same name as the function 'radius'
+// the radius() function will return itseld -> infinite loop,
+// instead industry practice makes it go above and search in constructor
 
 
 // class Point {
@@ -136,5 +166,23 @@
 
 // const point1 = new Point(1,1);
 // const point2 = new Point(4,5);
-
-
+// 95/100
+//  function getPersons(){
+//     class Person{
+//         constructor(firstName, lastName, age, email){
+//             this.firstName = firstName;
+//             this.lastName = lastName;
+//             this.age = age;
+//             this.email = email;
+//         }
+//         static toString(){
+//             return `${this.firstName} ${this.lastName} (age: ${this.age}, email: ${this.email})`
+//         }
+//     }
+//     return [
+//         new Person('Anna', 'Simpson', 22, 'anna@yahoo.com'),
+//         new Person('SoftUni'),
+//         new Person('Stephan', 'Johnson', 25),
+//         new Person('Gabriel', 'Peterson', 24, 'g.p@gmail.com')
+//     ]
+//  }
