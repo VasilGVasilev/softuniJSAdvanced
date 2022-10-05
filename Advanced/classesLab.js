@@ -186,3 +186,37 @@
 //         new Person('Gabriel', 'Peterson', 24, 'g.p@gmail.com')
 //     ]
 //  }
+
+// const myMap = new Map();
+
+// myMap.set('first', 5);
+// myMap.set('second', 6);
+
+// console.log(myMap.entries[0]); >> undefined because entries returns an iterator not an array
+
+
+// let set = new Set([1, 2, {'key': 'value'},{'key': 'value'}, 2]) >> every object is unique
+// console.log(set);
+
+
+// modal with DOM class:
+
+// class Modal{
+//     constructor(message){
+//         this.message = message;
+//         this.element = this._init();
+//     }
+//     _init(){
+//         const overlay = document.createElement('div');
+//         overlay.className = 'overlay';
+//         overlay.innerHTML = '<div class="modal"><p>${this.message}</p><button>OK</button></div>'
+//         return overlay; 
+//     }
+
+// }
+// function create() {
+//     const modal = new Modal('this is a message');
+
+//     document.body.appendChild(modal.element);
+// }
+
