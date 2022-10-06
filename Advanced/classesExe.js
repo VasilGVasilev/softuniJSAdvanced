@@ -62,45 +62,151 @@
 // 'Boston|126.20|departed'],
 // 'status'
 // )
-
-class List{
-    constructor(){
-        this.arr = [];
-        this.size = this.arr.length;
-    }
-    add(value) {
-        this.arr.push(value);
-        this.arr = this.arr.sort((a,b) => a - b)
-        this.size = this.arr.length
-    }
-    remove(index){
-        this.arr = this.arr.sort((a,b) => a- b)
-        if (index >= this.arr.length || index < 0){
-            throw new Error('invalid index')
-        } else {
-            return this.arr.splice(index, 1);
-        }
-        
-    }
-    get(index){
-        this.arr = this.arr.sort((a,b) => a- b)
-        if (index >= this.arr.length || index < 0){
-            throw new Error('invalid index')
-        } else {
-            return this.arr[index];
-        }
-    }
-}
-
-
-
-
-let list = new List();
+// in the constructor:
+//  this.size saves a primitive // number
+// this.arr saves a reference // obj
+// methods affect the this.arr and the arr direclty
+// those effects do not correspond automatically on the
+// this.size, arr.length, it needs to be set to a new number manually
+// class List{
+//     constructor(){
+//         this.arr = [];
+//         this.size = this.arr.length;
+//     }
+//     add(value) {
+//         this.arr.push(value);
+//         this.arr = this.arr.sort((a,b) => a - b)
+//         this.size = this.arr.length
+//     }
+//     remove(index){
+//         if (index >= this.arr.length || index < 0){
+//             throw new Error('invalid index')
+//         } else {
+//             this.arr.splice(index, 1);
+//             this.size = this.arr.length
+//         }
+//     }
+//     get(index){
+//         if (index >= this.arr.length || index < 0){
+//             throw new Error('invalid index')
+//         } else {
+//             return this.arr[index];
+//         }
+//     }
+// }
 
 
-list.add(5);
-list.add(3);
-console.log(list.get(0));
-list.remove(0);
-console.log(list);
 
+
+// let list = new List();
+// list.add(5);
+// console.log(list.get(0)); 
+// list.add(3);
+// list.remove(0);
+// console.log(list.get(0));
+// console.log(list.size);
+
+
+
+// class Stringer{
+//     constructor(str, length){
+//         this.innerString = str;
+//         this.innerLength = length;
+//     }
+//     increase(length){
+//         this.innerLength += length;
+//     }
+//     decrease(length){
+//         this.innerLength -= length;
+//         if (this.innerLength < 0){
+//             this.innerLength = 0;
+//         }
+//     }
+//     toString(){
+//         if (this.innerString.length > this.innerLength){
+//             return this.innerString.substring(0, this.innerLength) + '...';
+//         } else {
+//             return this.innerString;
+//         }
+//     }
+
+// }
+
+// let test = new Stringer("Test", 2);
+// console.log(test.toString()); // Test
+
+// class Company{
+//     departments = {};
+//     addEmployee(name, salary, position, department){
+//         if (arguments === undefined || arguments === null || arguments === ''){
+//             throw new Error('Invalid input!');
+//         }
+//         if (salary < 0){
+//             throw new Error('Invalid input!');
+//         }
+//         if (!this.departments.hasOwnProperty(department)){
+//             this.departments[department] = [[name],[salary], [position]];
+//         } else {
+//             this.departments[department][0].push(name)
+//             this.departments[department][1].push(salary)
+//             this.departments[department][2].push(position)
+//         }
+//     }
+
+//     bestDepartment(){
+//         for (let [dep, arrInDep] of Object.entries(this.departments)){
+//             let avg = 0;
+//             arrInDep[1].map(e=>{
+//                 avg+=e;
+//             });
+//             arrInDep[1] = [avg];
+            
+//         }
+//         this.departments.sort((a,b)=>a[1] - b[1]);
+//         console.log(this.departments);
+//     }
+    
+// }
+
+// let c = new Company();
+// c.addEmployee("Stanimir", 2000, "engineer", "Construction");
+// c.addEmployee("Pesho", 1500, "electrical engineer", "Construction");
+// c.addEmployee("Slavi", 500, "dyer", "Construction");
+// c.addEmployee("Stan", 2000, "architect", "Construction");
+// c.addEmployee("Stanimir", 1200, "digital marketing manager", "Marketing");
+// c.addEmployee("Pesho", 1000, "graphical designer", "Marketing");
+// c.addEmployee("Gosho", 1350, "HR", "Human resources");
+// console.log(c.bestDepartment());
+
+
+// class Hex {
+//     constructor(x){
+//         this.param = x;
+//     }
+//     valueOf(){
+//         return this.param;
+//     }
+//     plus(obj){
+//         let result = this.param + Number(obj.valueOf());
+//         return new Hex(result);
+//     }
+//     minus(obj){
+//         let result = this.param - Number(obj.valueOf());
+//         return new Hex(result);
+//     }
+//     toString(){
+//         return '0x' + this.param.toString(16).toUpperCase();
+//     }
+//     parse(str){
+//         return parseInt(str, 16)
+//     }
+// }
+
+// let FF = new Hex(255);
+// console.log(FF.toString());
+// FF.valueOf() + 1 == 256;
+// let a = new Hex(10);
+// let b = new Hex(5);
+// console.log(a.plus(b).toString());
+// console.log(a.plus(b).toString()==='0xF');
+// console.log(FF.parse('AAA'));
