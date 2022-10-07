@@ -210,3 +210,72 @@
 // console.log(a.plus(b).toString());
 // console.log(a.plus(b).toString()==='0xF');
 // console.log(FF.parse('AAA'));
+
+// function juice(arr){
+//     let juices = {};
+//     let bottles = {};
+
+//     function createBottles(flavour){
+//         if(juices[flavour] >= 1000){
+//             if(!bottles.hasOwnProperty(flavour)){
+//                 bottles[flavour] = 0;
+//             }
+//             let numberOfBottles = Math.floor(juices[flavour] / 1000);
+//             bottles[flavour] += numberOfBottles;
+//             let qtyLeft = juices[flavour] - (numberOfBottles * 1000);
+//             juices[flavour] = qtyLeft;
+//         }
+//     }
+
+//     for (let line of arr){
+//         let [flavour, qty] = line.split(' => ');
+//         if(!juices.hasOwnProperty(flavour)){
+//             juices[flavour] = 0;
+//         }
+//         juices[flavour] += Number(qty);
+//         createBottles(flavour);
+//     }
+    
+//     for(let [key, value] of Object.entries(bottles)){
+//         console.log(`${key} => ${value}`);
+//     }
+// }
+// juice(['Orange => 2000',
+// 'Peach => 1432',
+// 'Banana => 450',
+// 'Peach => 600',
+// 'Strawberry => 549']
+// )
+
+
+// function auto(arr){
+//     let objOfCars = {};
+//     for(let line of arr){
+//         let [brand, model, qty] = line.split(' | ');
+//         if(!objOfCars.hasOwnProperty(brand)){
+//             objOfCars[brand] = {};
+//         }
+//         if(!objOfCars[brand].hasOwnProperty(model)){
+//             objOfCars[brand][model] = Number(qty);
+//         } else {
+//             objOfCars[brand][model] += Number(qty);
+//         }
+//     }
+//     for(let brand in objOfCars){
+//         console.log(`${brand}`);
+//         for(let model in objOfCars[brand]){
+//             console.log(`###${model} -> ${objOfCars[brand][model]}`);
+//         }
+//     }
+// }
+// auto(['Audi | Q7 | 1000',
+// 'Audi | Q6 | 100',
+// 'BMW | X5 | 1000',
+// 'BMW | X6 | 100',
+// 'Citroen | C4 | 123',
+// 'Volga | GAZ-24 | 1000000',
+// 'Lada | Niva | 1000000',
+// 'Lada | Jigula | 1000000',
+// 'Citroen | C4 | 22',
+// 'Citroen | C5 | 10']
+// )
