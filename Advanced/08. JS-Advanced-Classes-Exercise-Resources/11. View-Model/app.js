@@ -1,5 +1,25 @@
 class Textbox {
-    //TODO
+    constructor(selector, regex){
+        this._value = '';
+        this._elements = Array.from(document.querySelectorAll(selector));
+        this._invalidSymbols = regex;
+    }
+    get elements(){
+        return this._elements;
+    }
+    get value(){
+        return this._value;
+    }
+    set value(v){
+        this._value = v;
+        for (let index = 0; index < this._elements.length; index++) {
+            this._elements[index].value = v;
+            
+        }
+    }
+    isValid(){
+        return !this._invalidSymbols.test(this.value)
+    }
 }
 
 let textbox = new Textbox(".textbox",/[^a-zA-Z0-9]/);
