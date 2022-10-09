@@ -120,3 +120,51 @@
 // person.fullName = "Nikola Tesla";
 // console.log(person.firstName); //Nikola
 // console.log(person.lastName); //Tesla
+
+
+
+
+//                           Prototype
+
+// Prototype chain
+// problem: extend One obj to another obj 
+// solution: both have the same prototype -> Object 
+// function personAndTeacher() {
+//     function Person(name, email){
+//         this.name = name;
+//         this.email = email;
+//     }
+//     function Teacher(name, email, subject){
+//         Person.call(this, name, email);
+//         this.subject = subject;
+//     }
+
+//     Teacher.prototype = Object.create(Person.prototype)
+//     Teacher.prototype.constructor = Teacher// necessary to set it
+
+//     console.log(Object.getPrototypeOf(Teacher));//{} Object
+//     console.log(Object.getPrototypeOf(Teacher) === Object.getPrototypeOf(Person)); //true
+    
+//     let p = new Teacher('bobi', 'email', 'history')
+//     console.log(p);
+// }
+
+// personAndTeacher();
+
+// function extendPrototype(classDef){
+//     classDef.prototype.species = 'Human';
+//     classDef.prototype.toSpeciesString = function(){
+//         return `I am a ${this.species}. ${this.toString()}`
+//     }
+// }
+
+// function Person(name, age){
+//     this.name = name;
+//     this.age = age;
+// }
+
+// Person.prototype.toString = function(){
+//     return `To string method from prototype of ${this.name}`;
+// }
+
+// extendPrototype(Person);
