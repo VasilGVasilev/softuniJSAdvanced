@@ -129,6 +129,9 @@
 // Prototype chain
 // problem: extend One obj to another obj 
 // solution: both have the same prototype -> Object 
+
+// -----------COMPOSITION
+
 // function personAndTeacher() {
 //     function Person(name, email){
 //         this.name = name;
@@ -151,13 +154,52 @@
 
 // personAndTeacher();
 
+
+// -------------INHERITANCE
+
+// function personAndTeacher() {
+//     class Person {
+//         constructor(name, email){
+//             this.name = name;
+//             this.email = email;
+//         }
+//     }
+
+//     class Teacher extends Person {
+//         constructor(name, email, subject){
+//             super(name, email);
+//             this.subject = subject;
+//         }
+//     }
+
+//     return {
+//         Person,
+//         Teacher
+//     }
+// }
+
+//          INHERITANCE VS COMPOSITION
+
+// INSTEAD OF:
+//     Person.call(this, name, email);
+//     Teacher.prototype = Object.create(Person.prototype)
+//     Teacher.prototype.constructor = Teacher// necessary to set it
+// DO THIS:
+//     class Teacher extends Person {
+//     super(name, email);
+
+
+
+
+
+
+
 // function extendPrototype(classDef){
 //     classDef.prototype.species = 'Human';
 //     classDef.prototype.toSpeciesString = function(){
 //         return `I am a ${this.species}. ${this.toString()}`
 //     }
 // }
-
 // function Person(name, age){
 //     this.name = name;
 //     this.age = age;
@@ -168,3 +210,77 @@
 // }
 
 // extendPrototype(Person);
+
+
+// function toStringExtension() {
+//     class Person {
+//         constructor(name, email){
+//             this.name = name;
+//             this.email = email;
+//         }
+//         toString(){
+//             return `Person (name: ${this.name}, email: ${this.email})`
+//         }
+//     }
+//     class Student extends Person{
+//         constructor(name, email, course){
+//             super(name, email)
+//             this.course = course;
+//         }
+//         toString(){
+//             return `Student (name: ${this.name}, email: ${this.email}, course: ${this.course})`
+//         }
+//     }
+//     class Teacher extends Person{
+//         constructor(name, email, subject){
+//             super(name, email)
+//             this.subject = subject;
+//         }
+//         toString(){
+//             return `Teacher (name: ${this.name}, email: ${this.email}, subject: ${this.subject})`
+//         }
+//     }
+//     return {
+//         Person,
+//         Teacher,
+//         Student
+//     }
+// }
+// toStringExtension()
+
+
+
+
+
+// you can also override methods by using the word #super#
+// if you use the same name of method 
+
+// function toStringExtension() {
+//     class Person {
+//         constructor(name, email){
+//             this.name = name;
+//             this.email = email;
+//         }
+//         toString(){
+//             return `Person (name: ${this.name}, email: ${this.email}).`
+//         }
+//     }
+//     class Student extends Person{
+//         constructor(name, email, course){
+//             super(name, email)
+//             this.course = course;
+//         }
+//         toString(){
+//             return super.toString() + `Their course: ${this.course})`
+//         }
+//     }
+//     let t = new Student('Ivan', 'ivan@ivan', 'Graphics')
+//     console.log(t);
+//     return {
+//         Person,
+//         Student
+//     }
+// }
+
+// toStringExtension()
+
