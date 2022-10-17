@@ -1,4 +1,4 @@
-function addItem() {
+function addItem(e) {
     let input = document.querySelector('#newItemText').value;
     let items = document.querySelector('main ul');
 

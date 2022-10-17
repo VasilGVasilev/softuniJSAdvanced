@@ -3,6 +3,7 @@ function attachEventsListeners() {
     let hoursBtn = document.getElementById('hoursBtn');
     let minutesBtn = document.getElementById('minutesBtn');
     let secondsBtn = document.getElementById('secondsBtn');
+    daysBtn.children
 
     let days = document.getElementById('days');
     let hours = document.getElementById('hours');

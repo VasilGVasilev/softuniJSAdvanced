@@ -10,6 +10,11 @@ function create(words) {
       div.appendChild(p);
 
       div.addEventListener('click', reveal)
+      // why not reveal()? -> it will execute immediately and due to no return in cb function, it will result in undefined
+      // by not putting () we let it await the click, so it is user-based decision to trigger the cb function, not automatic
+      // why we dont use HTML Attribute //onlick=()// or play with DOM element properties //btn.onlick = eventListen//?
+      // -> addEventListener can be added multiply to the same element
+
 
       content.appendChild(div);
 
