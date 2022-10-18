@@ -193,6 +193,12 @@
 // console.log(add7(2));
 // console.log(add7(3));
 
+
+
+
+// Partial Application
+
+
 // function createFormatter(separator, symbol, symbolFirst, formatter){
 //     return (value) => formatter(separator, symbol, symbolFirst, value)
 // }
@@ -208,6 +214,13 @@
 // console.log(dollarFormatter(5345));   // $ 5345,00
 // console.log(dollarFormatter(3.1429)); // $ 3,14
 // console.log(dollarFormatter(2.709));  // $ 2,71
+
+
+
+
+
+
+
 
 
 
@@ -354,5 +367,3 @@
 // 'set c2 model new',
 // 'print c1',
 // 'print c2'])
-
-// DO LAST EXE 7!!!!!!!!!!!!!!!!!!!
