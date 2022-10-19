@@ -52,14 +52,42 @@
 
 // console.log(person.fristname); reach outside of class Person is impossoble due to #firstName
 
+// BEWARE WHERE YOU EXPECT CALCULATIONS OF AUTOUPDATE:
+// class Circle {
+//     constructor(radius){
+//         this.radius = radius;
+//         this.diameter = radius * 2;
+//     }
+// }
+// const c = new Circle(5);
+// console.log(c.diameter); >> 10
+// c.radius = 6;
+// console.log(c.diameter); >> 12
+// Thus, the diameter doesnt reflect automatically on the changes of radius so that when radius is updated, this.diameter is also updated;
+// !!!!!!!!!!!!!!!diameter is calculated at the moment of creation
+
+// class Circle {
+//     constructor(radius){
+//         this.radius = radius;
+//     }
+//     getDiameter{
+//         return this.radius * 2;
+//     }
+// }
+// const c = new Circle(5);
+// console.log(c.diameter); >> 10
+// c.radius = 6;
+// console.log(c.diameter); >> 12
+// !!!!!!!!!!!!!!!diameter is calculated at the moment of parsing
+
 
 // STRICT MODE CLASS 
 // body of class defined object is in strict mode
 
-// static METHOD - give functionality to classes, they dont usually have one, the are a template whose instances have functionality
+// static METHOD - give functionality to classes, they dont usually have one, they are a template whose instances have functionality
 // only on instance of object (class Person, not on guy1, guy2), 
 // thus, cannot be called like this: guy1.printType() // strict printType()
-// onlu like this: Person.printType()
+// only like this: Person.printType()
 
 
 // class Circle {
@@ -92,10 +120,7 @@
 // SET and GET - Accessories
 // set and get as a means to treat class-based objects' methods as properties
 // set - WRITE ON
-// get READ ONLY
-
-
-
+// get - READ ONLY
 
 
 // >>>>>>>>>>>>>>   NOTE A POSSIBLE BUG this.radius && get radius()
@@ -110,48 +135,33 @@
 //         return this.radius * 2;
 //     }
 // }
-// When you use the same name for the getter -> radius in constructor 
-// get overwritten but the return of the getter function refers to 
-// a this.radius which automatically refers to the name of the getter function
-// and you enter into an infinite loop
+// const c = new Circle(5);
+// c.radius
+// what does c.radius call ?
+// since we have written GET RADIUS accessor that has the same name (radius)
+// as the property RADIUS IN CONSTRUCTOR, the GET RADIUS accessor actually
+// overwrites the RADIUS IN CONSTRUCTOR, so when call c.radius 
+// the program goes to GET RADIUS property and return this.radius which searches
+// for this radius but since the RADIUS IN CONSTRUCTOR is overwritten
+// it returns the very same GET RADIUS accessor
 
-// class Circle {
-//     constructor(radiusValue){
-//         this.radiusKey = radiusValue;
-//     }
-//     get r(){
-//         return this.radiusKey;
-//     }
-// }
+// NB return var should not be the same name as the get/set acessor name 
 
-// const point = new Circle(2);
 
-// console.log(point.r);
-
-// point.r goes to get r()
-// get r searches for this.radiusKey
-// get r finds this.radiusKey in constructor
-// this.radiusKey is Circle { radiusKey: radiusValue}
-
-// industry practice:
+// BETTER industry practice: {the property that holds data //in constructor// needs _ in front of name}
 // class Circle {
 //     constructor(radius){
-//         this._radius = radius;
+//         this._radius = radius; <----------
 //     }
 //     get radius(){
-//         return this._radius;
+//         return this._radius; <-----------
 //     }
 //     get diameter(){
 //         return this._radius * 2;
 //     }
 // }
 
-// namely:
-// create variable _radius to be key in Circle through this._radius similar to Circle._radius
-// when get radius() is triggered it returns that very variable _radius
-// if you aet it with the same name as the function 'radius'
-// the radius() function will return itseld -> infinite loop,
-// instead industry practice makes it go above and search in constructor
+
 
 
 // class Point {
