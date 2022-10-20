@@ -1,40 +1,26 @@
+const {bookSelection} = require('./solution');
+const {expect} = require('chai');
 describe("Book Selection", () => {
   describe("Test for isGenreSuitable", () => {
-    it("Check for invalid parameters", () => {
-      expect(() =>
-        bookSelection
-          .isGenreSuitable("Crime", "number")
-          .to.throw("Invalid input!")
-      );
-      expect(() =>
-        bookSelection.isGenreSuitable(11, 12).to.throw("Invalid input!")
-      );
-      expect(() =>
-        bookSelection.isGenreSuitable(3, "Horror").to.throw("Invalid input!")
-      );
-    });
-
     it("Check valid parameters", () => {
-      expect(bookSelection.isGenreSuitable("Horror", 12)).to.equal(
-        `Books with Horror genre are not suitable for kids at 12 age`
-      );
-      expect(bookSelection.isGenreSuitable("Horror", 20)).to.equal(
-        `Those books are suitable`
-      );
-    });
+      expect(bookSelection.isGenreSuitable('Thriller', 1)).to.equal(`Books with Thriller genre are not suitable for kids at 1 age`);
+      expect(bookSelection.isGenreSuitable('Horror', 1)).to.equal(`Books with Horror genre are not suitable for kids at 1 age`);
+      expect(bookSelection.isGenreSuitable('Thriller', 21)).to.equal(`Those books are suitable`);
+      expect(bookSelection.isGenreSuitable('Horror', 21)).to.equal(`Those books are suitable`);
+      expect(bookSelection.isGenreSuitable('Fantasy', 10)).to.equal(`Those books are suitable`);
+      expect(bookSelection.isGenreSuitable('Science', 11)).to.equal(`Those books are suitable`);
+      expect(bookSelection.isGenreSuitable(20, 21)).to.equal(`Book bought. You have 1$ left`);
   });
 
   describe("Test for isItAffordable", () => {
     it("Check valid parameters", () => {
-      expect(bookSelection.isItAffordable(20, 21)).to.equal(
-        `Book bought. You have 1$ left`
-      );
-      expect(bookSelection.isItAffordable(15, 10)).to.equal(
-        `You don't have enough money`
-      );
+      expect(()=>bookSelection.isItAffordable([], [])).to.throw("Invalid input");
+      expect(()=>bookSelection.isItAffordable('', '')).to.throw("Invalid input");
+      expect(()=>bookSelection.isItAffordable(null, NaN)).to.throw("Invalid input");
+      expect(bookSelection.isItAffordable(15, 10)).to.equal(`You don't have enough money`);
+      expect(bookSelection.isItAffordable(10, 15)).to.equal(`Book bought. You have 5$ left`);
     });
   });
-
   describe("Test for suitableTitles", () => {
     it("Check for invalid parameters", () => {
       expect(() =>
@@ -78,4 +64,5 @@ describe("Book Selection", () => {
       ).to.deep.equal([]);
     });
   });
+});
 });
