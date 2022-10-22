@@ -23,33 +23,14 @@ describe("Book Selection", () => {
   });
   describe("Test for suitableTitles", () => {
     it("Check for invalid parameters", () => {
-      expect(() =>
-        bookSelection
-          .suitableTitles("array", "genre")
-          .to.throw("Invalid input!")
-      );
-      expect(() =>
-        bookSelection
-          .suitableTitles("genre", ["Horror", "Adventure", "Crime"])
-          .to.throw("Invalid input!")
-      );
-      expect(() =>
-        bookSelection
-          .suitableTitles(["Horror", "Adventure", "Crime"], 2)
-          .to.throw("Invalid input!")
-      );
+      expect(() => bookSelection.suitableTitles("array", "genre").to.throw("Invalid input!"));
+      expect(() => bookSelection.suitableTitles("genre", ["Horror", "Adventure", "Crime"]).to.throw("Invalid input!"));
+      expect(() => bookSelection.suitableTitles(["Horror", "Adventure", "Crime"], 2).to.throw("Invalid input!"));
     });
 
     it("Check for valid parameters", () => {
       expect(
-        bookSelection.suitableTitles(
-          [
-            { title: "The Da Vinci Code", genre: "Crime" },
-            { title: "Presumed Innocent", genre: "Crime" },
-          ],
-          "Crime"
-        )
-      ).to.deep.equal(["The Da Vinci Code", "Presumed Innocent"]);
+        bookSelection.suitableTitles([{ title: "The Da Vinci Code", genre: "Crime" },{ title: "Presumed Innocent", genre: "Crime" },],"Crime")).to.deep.equal(["The Da Vinci Code", "Presumed Innocent"]);
       expect(
         bookSelection.suitableTitles(
           [{ title: "The Guest List", genre: "Thriller" }],
