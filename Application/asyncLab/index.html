@@ -35,20 +35,32 @@
         // })
         // industry practice with async/await:
         // put async in front of function and for every .then() write an await to cpature promise;
-        // NB every async fn returns a promise so capture it with .then() but also dont forget to call it as in btnFn().then()
+        // NB every async fn returns a promise so capture it with .then() if necessary
         butt.addEventListener('click', btnFn) 
         
         async function btnFn(){
             try {
                 let response = await fetch('https://swapi.dev/api/people/1');
                 let data = await response.json();
-                return data;
+                txtA.value = JSON.stringify(data)
             } catch (error) {
                 console.log(error);
             }
+        } 
+        // if there is an error in the try block /internal logic/ we have to set error handling
+        // async function btnFn(){
+        //     try {
+        //         let response = await fetch('https://swapi.dev/api/people/1MistakenUrl');
+        //         if(response.ok == false){
+        //             throw new Error('Request error');
+        //         }
+        //         let data = await response.json();
+        //         txtA.value = JSON.stringify(data)
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
             
-        }
-        btnFn().then(e=>txtA.value = JSON.stringify(e))
+        // }
         
     </script>
 </body>
