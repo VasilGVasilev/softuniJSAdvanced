@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- name="" attribute in input is to be found on payload/request in network browser tab-->
+    <!-- name="" is also used with: let formData = new FromData(e) => formData.get('username') -->
+    <form method="POST" id="login-form">
+        <div>
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username"> 
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+        </div>
+        <div>
+            <input type="submit" value="Login">
+        </div>
+    </form>
+    <!-- eventHandler directly on form instead of button -->
+    <script>
+        let formEl = document.getElementById('login-form');
+        formEl.addEventListener('submit', (e)=>{
+            e.preventDefault();
+            let formData = new FormData(e.currentTarget);
+            // currentTarget -> the element with eventListener (formEl)
+            // target -> the element clicked (submitBtn)
+
+            console.log(formData.get('username'));
+        })
+    </script>
+</body>
+</html>
