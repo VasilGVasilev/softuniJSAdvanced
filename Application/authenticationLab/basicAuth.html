@@ -7,8 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- name="" attribute in input is to be found on payload/request in network browser tab-->
-    <!-- name="" is also used with: let formData = new FromData(e) => formData.get('username') -->
+    
     <form method="POST" id="login-form">
         <div>
             <label for="username">Username</label>
@@ -22,17 +21,30 @@
             <input type="submit" value="Login">
         </div>
     </form>
-    <!-- eventHandler directly on form instead of button -->
+
     <script>
         let formEl = document.getElementById('login-form');
         formEl.addEventListener('submit', (e)=>{
             e.preventDefault();
             let formData = new FormData(e.currentTarget);
-            // currentTarget -> the element with eventListener (formEl)
-            // target -> the element clicked (submitBtn)
-
-            console.log(formData.get('username'));
             let {username, password} = Object.fromEntries(formData);
+            let data = {
+                email: username,
+                password
+            }
+            fetch('http://localhost:3030/users/login', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res=>res.json())
+                .then(user=>{
+                    console.log(user);
+                    const authToken = user.accessToken;
+                    localStorage.setItem('user', JSON.stringify(user));
+                })
         })
     </script>
 </body>
