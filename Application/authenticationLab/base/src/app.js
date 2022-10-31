@@ -1,8 +1,8 @@
 async function getRecipes() {
-    const response = await fetch('http://localhost:3030/data/recipes');
+    const response = await fetch('http://localhost:3030/data/recipes?select=_id%2Cname%2Cimg');
     const recipes = await response.json();
 
-    return Object.values(recipes);
+    return recipes;
 }
 
 async function getRecipeById(id) {
@@ -47,25 +47,26 @@ function createRecipeCard(recipe) {
 }
 
 window.addEventListener('load', async () => {
-    const main = document.querySelector('main');
-    const userNavigation = document.querySelector('#user');
-    const guestNavigation = document.querySelector('#guest');
-    const logoutButton = document.querySelector('#logoutBtn');
 
-    logoutButton.addEventListener('click', (e)=>{
-        e.preventDefault();
+    
+    document.getElementById('logoutBtn').addEventListener('click', ()=>{
+        const token = sessionStorage.getItem('accessToken');
 
-        localStorage.clear();
-        location.reload(); //bad practice with SPA 
+        fetch('http://localhost:3030/users/logout', {
+            headers:{
+                'X-Authorization': token
+            }
+        });
+
+        sessionStorage.removeItem('accessToken');
+
+        window.location = 'http://127.0.0.1:5500/authenticationLab/base/index.html';
     })
 
-    // if logged in => in local Storage
-    let username = localStorage.getItem('username');
-    if(username){
-        userNavigation.style.display = 'block';
-    } else {
-        guestNavigation.style.display = 'block';
-    }
+    
+    checkUser();// this is synchronious function
+
+    const main = document.querySelector('main');
 
     const recipes = await getRecipes();
     const cards = recipes.map(createRecipePreview);
@@ -73,6 +74,16 @@ window.addEventListener('load', async () => {
     main.innerHTML = '';
     cards.forEach(c => main.appendChild(c));
 });
+
+
+function checkUser(){
+    const token = sessionStorage.getItem('accessToken');
+    if(token != null){ //user
+        document.getElementById('user').style.display = 'inline-block'
+    } else{ //No such user
+        document.getElementById('guest').style.display = 'inline-block'
+    }
+}
 
 function e(type, attributes, ...content) {
     const result = document.createElement(type);
