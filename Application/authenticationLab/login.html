@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form>* {
+            display: block
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="text" id="token"><button>Make Authorised request</button>
+    </div>
+    
+    <div>
+        <h2>Login</h2>
+        <form>
+            <input type="text" name="email">
+            <input type="password" name="password">
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+    <script>
+        document.querySelector('button').addEventListener('click', async ()=>{
+
+            try {
+                const token = document.getElementById('token').value;
+
+                const response = await fetch('http://localhost:3030/data/recipes', {
+                    headers:{
+                        'X-Authorization': token
+                    }
+                })
+                if (response.ok == false){
+                    const error = await response.json()
+                    throw new Error(error.message)
+                }
+                const data = await response.json();
+            } catch (err) {
+                alert(err.message)
+            }
+        })
+
+        document.querySelector('form').addEventListener('submit', onSubmit)
+        
+        async function onSubmit(ev){
+            ev.preventDefault();
+
+            const formData =  new FormData(ev.currentTarget);
+
+            const data = {
+                email: formData.get('email'),
+                password: formData.get('password')
+            }
+
+            try {
+               
+                const response = await fetch('http://localhost:3030/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if(response.ok == false){
+                    const error = await response.json();
+                    throw new Error(error.message)
+                }
+
+                const responseData = await response.json();
+
+                // add token to session storage so if valid login -> access to authorised request button
+                sessionStorage.setItem('accessToken', responseData.accessToken);
+                console.log(responseData);
+                
+            } catch (err) {
+                alert(err.message)
+            }
+        }
+    </script>
+</body>
+</html>
