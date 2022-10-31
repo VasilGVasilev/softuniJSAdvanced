@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form>* {
+            display: block
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <input type="text" name="email">
+        <input type="password" name="password">
+        <input type="password" name="repass">
+        <input type="submit" value="Register">
+    </form>
+    <script>
+        document.querySelector('form').addEventListener('submit', onSubmit)
+
+        async function onSubmit(ev){
+            ev.preventDefault();
+
+            const formData =  new FormData(ev.currentTarget);
+
+            const data = {
+                email: formData.get('email'),
+                password: formData.get('password')
+            }
+
+            try {
+                if(formData.get('password') != formData.get('repass')){
+                    // ---(2)--- another error added to the error obj, later explained better
+                    throw new Error('Passwords don\'t match!');
+                }
+
+                const response = await fetch('http://localhost:3030/users/register', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // here we catch the error of same user register
+                if(response.ok == false){
+                    // the server returns an object even if only with code and message keys
+                    const error = await response.json();
+                    // we use the object to create a relevant Error message
+                    throw new Error(error.message)
+                    // ---(1)--- this Error is the one that will be used in the catch of trycatch
+                }
+
+                const responseData = await response.json();
+
+                console.log(responseData);
+                
+            } catch (err) {
+                // ---(1)---
+                // ---(2)---
+                alert(err.message)
+            }
+        }
+    </script>
+</body>
+</html>
