@@ -1,4 +1,4 @@
-async function attachEvents() {
+function attachEvents() {
     // take all input fields
     const authorName = document.querySelector('[name="author"]');
     const msgText = document.querySelector('[name="content"]');
