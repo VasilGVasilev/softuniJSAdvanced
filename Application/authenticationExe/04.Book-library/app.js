@@ -1,18 +1,22 @@
 window.addEventListener('load', initialLoading);
 const loadBooksBtn = document.getElementById('loadBooks');
 const tbody = document.querySelector('table tbody');
-let form = document.querySelector('form');
+const submitForm = document.getElementById('submit');
+const saveForm = document.getElementById('save');
+let currentId;
 
 async function initialLoading(){
 
     loadBooksBtn.addEventListener('click', loadBooks);
-    form.addEventListener('submit', submitBook);
+    submitForm.addEventListener('submit', submitBook);
     tbody.addEventListener('click', onClick);
 }
 
 async function loadBooks(){
 
     try {
+        tbody.innerHTML = ''
+
         let response = await fetch('http://localhost:3030/jsonstore/collections/books');
 
         if(response.ok == false){
@@ -23,7 +27,6 @@ async function loadBooks(){
         let data = await response.json();
 
         Object.entries(data).forEach(obj => {
-            console.log(obj);
             let id = obj[0];
            let resultTr = createElements('tr',
            createElements('td', obj[1].title),
@@ -66,7 +69,7 @@ async function submitBook(e){
 
     e.preventDefault();
 
-    let formData = new FormData(form);
+    let formData = new FormData(submitForm);
     let title = formData.get('title');
     let author = formData.get('author');
     
@@ -97,7 +100,8 @@ async function submitBook(e){
             let error = response.json();
             throw new Error(error.message)
         }
-        
+        submitForm.children[2].value = ''
+        submitForm.children[4].value = ''
 
     } catch (error) {
         alert(error.message);
@@ -110,51 +114,59 @@ async function onClick(e){
         editFunc(elClicked);
     }
     if(elClicked.innerText == 'Delete'){
-        console.log('del');
+        delFunc(elClicked);
     }
 }
+
 
 async function editFunc(elClicked){
     let title = elClicked.parentElement.parentElement.children[0].innerHTML;
     let author = elClicked.parentElement.parentElement.children[1].innerHTML;
-    let currentId = elClicked.parentElement.parentElement.id;
-
-    // let formSave = document.createElement('form');
-    // let h3 = document.createElement('h3');
-    // h3.textContent = 'Edit Form';
-    // formSave.appendChild(h3);
-    // let label1 = document.createElement('label');
-    // label1.textContent = 'Edit Form';
-    // formSave.appendChild(label1);
-
-    
-    
+    currentId = elClicked.parentElement.parentElement.id;
+    saveForm.children[2].value = title;
+    saveForm.children[4].value = author;
+    saveForm.addEventListener('submit', onSave);
 
 
-    formBtn.addEventListener('click', async ()=>{
 
-        
-        let authorChanged = form.children[2].value;
-        let titleChanged = form.children[4].value;
-        const formSave = document.getElementById('saveForm');
+}
 
+async function onSave (e) {
+
+    e.preventDefault();
+
+    let formData = new FormData(saveForm);
+    let title = formData.get('title');
+    let author = formData.get('author');
+    try {
+
+        // req/res
         let response = await fetch(`http://localhost:3030/jsonstore/collections/books/${currentId}`, {
-            method:'PUT',
-            headers:{
+            method: 'PUT',
+            headers: {
                 'content-type': 'application/json'
             },
-            body:JSON.stringify({
-
-                title: titleChanged,
-                author: authorChanged
-            
+            body: JSON.stringify({
+                author: author,
+                title: title
             })
         });
-        
-    })
-    
+        if(response.ok==false){
+            let error = response.json();
+            throw new Error(error.message)
+        }
+        saveForm.children[2].value = '';
+        saveForm.children[4].value = '';
+    } catch (error) {
+        alert(error.message);
+    }
 
+}
 
-    // formHeader.textContent = 'FORM';
-    // formBtn.textContent = 'Submit';
+async function delFunc(elClicked){
+    let currentId = elClicked.parentElement.parentElement.id;
+    elClicked.parentElement.parentElement.remove();
+    await fetch(`http://localhost:3030/jsonstore/collections/books/${currentId}`, {
+        method: 'DELETE'
+    });
 }
