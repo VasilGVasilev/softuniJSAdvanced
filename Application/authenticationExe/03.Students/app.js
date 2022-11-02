@@ -19,6 +19,17 @@ async function onLoad(){
         let resultTr = createElem(element);
         tbody.appendChild(resultTr);
     });
+    // data for optimised generator
+
+    // Object.values(data).forEach(element => {
+    //     let result = createElem('tr',
+    //     createElem('td', element.firstName),
+    //     createElem('td', element.lastName),
+    //     createElem('td', element.facultyNumber),
+    //     createElem('td', element.grade)
+    //     );
+    //     tbody.appendChild(result);
+    // });
 }
 
 function createElem(element){
@@ -43,6 +54,22 @@ function createElem(element){
     return tr;
 }
 
+// Optimised Generator
+
+// function createElem(type, ...content){
+//     let element = document.createElement(type);
+
+//     content.forEach(c => { //function can be variabale passed in too /higher order/
+//         //check if c is a function
+//         if(typeof c === 'number' || typeof c === 'string'){
+//             c = document.createTextNode(c);
+//         }
+//         element.appendChild(c); // Element + textNode
+//     })
+
+//     return element;
+// }
+
 async function onSubmit(e){
     e.preventDefault();
     let dataForm = new FormData(form);
@@ -52,13 +79,23 @@ async function onSubmit(e){
         facultyNumber: dataForm.get('facultyNumber'),
         grade: dataForm.get('grade')
     }
-    await fetch('http://localhost:3030/jsonstore/collections/students',{
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(students)
-    })
+
+    try {
+        let res = await fetch('http://localhost:3030/jsonstore/collections/students',{
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(students)
+        })
+        if(res.ok == false){
+            const error = res.json();
+            throw new Error(error.message)
+        }
+    } catch (error) {
+        alert(error.message)
+    }
+    
     // reload table
     onLoad();
 }
