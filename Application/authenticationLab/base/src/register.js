@@ -35,7 +35,7 @@ async function onSubmit(event){
             throw new Error(error.message)
         } 
         const data = await response.json();
-
+        console.log(data.accessToken);
         sessionStorage.setItem('accessToken', data.accessToken);
 
         window.location = 'http://127.0.0.1:5500/authenticationLab/base/index.html';

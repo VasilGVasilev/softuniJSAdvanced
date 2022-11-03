@@ -1,3 +1,14 @@
+// the whole logic of authTokens in this app is that
+// you send a post request with login or register
+// and the server returns you to home page
+// with a newly generated access token
+// even if you register accessToken '1234' -> logout -> login accessToken '6344'
+// the specific number is different but this is non-important
+// the check in homepage is whether there is any accessToken in browser storage
+// if yes -> access to create and logout
+// uniquiness of accessTokens is not related to UI being specific that is determined on the backend
+
+
 async function getRecipes() {
     const response = await fetch('http://localhost:3030/data/recipes?select=_id%2Cname%2Cimg');
     const recipes = await response.json();
