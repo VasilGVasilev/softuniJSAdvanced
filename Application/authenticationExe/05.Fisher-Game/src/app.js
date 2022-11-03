@@ -11,8 +11,6 @@ const logoutBtn = document.getElementById('logout');
 
 async function loadingHomepage(){
 
-   
-
     // disable all update/delete btns
     Array.from(document.querySelectorAll("#catches button"))
         .forEach(element => {
@@ -38,7 +36,6 @@ async function loadingHomepage(){
         document.querySelector(".add").disabled = false;
         
 
-
             // adding catches functionality
         const addForm = document.getElementById('addForm');
         addForm.addEventListener('submit', addCatches);
@@ -47,25 +44,10 @@ async function loadingHomepage(){
         let loadBtn = document.querySelector(".load")
         loadBtn.addEventListener('click', loadFunc);
 
-
-            // limit access to user's catches
-        let limitCatch = document.querySelectorAll("div.catch");
-        console.log(limitCatch);
-        limitCatches(limitCatch);
     }
-    logoutBtn.addEventListener('click', logoutFunc);
-}
 
-async function limitCatches(limitCatch){
-    
-    console.log(limitCatch);
-        limitCatch.forEach(element => {
-            if (sessionStorage._id === element.getAttribute('data-id')){
-                element.children[12].disabled = false;
-                element.children[13].disabled = false;
-            }
-            
-        });
+    // logout logic
+    logoutBtn.addEventListener('click', logoutFunc);
 }
 
 async function addCatches(e){
@@ -106,7 +88,6 @@ async function addCatches(e){
 
 
         // input fields blank again
-
         deleteInputFields('form#addForm input')
         
         
@@ -122,11 +103,28 @@ function deleteInputFields(form){
     });
 }
 
+async function limitCatches(limitCatch){
+    
+    limitCatch.forEach(element => {
+        if (sessionStorage._id === element.getAttribute('data-id')){
+            element.children[12].disabled = false;
+            element.children[13].disabled = false;
+        }
+        else{
+            element.children[12].disabled = true;
+            element.children[13].disabled = true;
+        }
+        
+    });
+}
+
 async function loadFunc(){
+    
     // show catches field
     document.getElementById('main').style.display = 'inline-block';
     
     // generate
+
         // request/response
     try {
         let response = await fetch('http://localhost:3030/data/catches')
@@ -137,16 +135,86 @@ async function loadFunc(){
         }
     
         let data = await response.json();
+
+        // set catches from returned object
         let catches = document.getElementById('catches');
+        catches.innerHTML = '';
         data.forEach(element => {
             let infoInDiv = createCatch(element);
             catches.appendChild(infoInDiv);
         });
+
+        // limit access to user's catches
+        let limitCatch = document.querySelectorAll("div.catch");
+        limitCatches(limitCatch);
+
+        // update/delete catch
+        let catchesForm = Array.from(document.querySelectorAll('div.catch>button'));
+        catchesForm.forEach(element => {
+            element.addEventListener('click', (e)=>{
+                
+                if(e.currentTarget.className === 'update'){
+                    updateFunc(e.currentTarget)
+                } else if(e.currentTarget.className === 'delete'){
+                    delFunc(e.currentTarget);
+                }
+
+            })
+        });
+
     } catch (error) {
-            
+            alert(error.message)
     }
 
     
+}
+async function delFunc(btn){
+    let id = btn.parentElement.lastChild.dataset.id
+    await fetch(`http://localhost:3030/data/catches/${id}`,{
+        method: 'DELETE',
+        headers: {
+            'X-Authorization': sessionStorage.getItem('accessToken')
+        }
+    })
+    btn.parentElement.remove();
+}
+
+async function updateFunc(btn){
+    let currentCatch = btn.parentElement;
+    let catchId = currentCatch.lastChild.dataset.id;
+    let angler = currentCatch.children[1].value;
+    let weight = currentCatch.children[3].value;
+    let species = currentCatch.children[5].value;
+    let location = currentCatch.children[7].value;
+    let bait = currentCatch.children[9].value;
+    let captureTime = currentCatch.children[11].value;
+
+    try {
+        // request/response
+        let response = await fetch(`http://localhost:3030/data/catches/${catchId}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+                'X-Authorization': sessionStorage.getItem('accessToken')
+            },
+            body: JSON.stringify({
+                angler,
+                weight,
+                species,
+                location,
+                bait,
+                captureTime
+            })
+        })
+
+        if(response.ok == false){
+            const error = await response.json();
+            throw new Error(error.message);
+        }
+
+    } catch (error) {
+        alert(error.message);
+    }
 }
 
 function createCatch(element){
