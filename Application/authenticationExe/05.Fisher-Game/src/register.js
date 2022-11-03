@@ -51,6 +51,7 @@ async function submitRegister(e){
         // browser storage
         sessionStorage.setItem('accessToken', data.accessToken);
         sessionStorage.setItem('_id', data._id);
+        sessionStorage.setItem('email', data.email);
         
         // redirect to Homepage
         window.location = 'http://127.0.0.1:5500/authenticationExe/05.Fisher-Game/src/'

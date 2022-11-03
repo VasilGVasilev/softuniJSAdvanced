@@ -44,6 +44,7 @@ async function submitLogin(e){
             // you can have only one accessToken and id per login session so no collisions
         sessionStorage.setItem('accessToken', data.accessToken);
         sessionStorage.setItem('_id', data._id);
+        sessionStorage.setItem('email', data.email);
 
         // homepage redirect
         window.location = 'http://127.0.0.1:5500/authenticationExe/05.Fisher-Game/src/'
