@@ -1,0 +1,122 @@
+// the whole logic of authTokens in this app is that
+// you send a post request with login or register
+// and the server returns you to home page
+// with a newly generated access token
+// even if you register accessToken '1234' -> logout -> login accessToken '6344'
+// the specific number is different but this is non-important
+// the check in homepage is whether there is any accessToken in browser storage
+// if yes -> access to create and logout
+// uniquiness of accessTokens is not related to UI being specific that is determined on the backend
+
+
+async function getRecipes() {
+    const response = await fetch('http://localhost:3030/data/recipes?select=_id%2Cname%2Cimg');
+    const recipes = await response.json();
+
+    return recipes;
+}
+
+async function getRecipeById(id) {
+    const response = await fetch('http://localhost:3030/data/recipes/' + id);
+    const recipe = await response.json();
+
+    return recipe;
+}
+
+function createRecipePreview(recipe) {
+    const result = e('article', { className: 'preview', onClick: toggleCard },
+        e('div', { className: 'title' }, e('h2', {}, recipe.name)),
+        e('div', { className: 'small' }, e('img', { src: recipe.img })),
+    );
+
+    return result;
+
+    async function toggleCard() {
+        const fullRecipe = await getRecipeById(recipe._id);
+
+        result.replaceWith(createRecipeCard(fullRecipe));
+    }
+}
+
+function createRecipeCard(recipe) {
+    const result = e('article', {},
+        e('h2', {}, recipe.name),
+        e('div', { className: 'band' },
+            e('div', { className: 'thumb' }, e('img', { src: recipe.img })),
+            e('div', { className: 'ingredients' },
+                e('h3', {}, 'Ingredients:'),
+                e('ul', {}, recipe.ingredients.map(i => e('li', {}, i))),
+            )
+        ),
+        e('div', { className: 'description' },
+            e('h3', {}, 'Preparation:'),
+            recipe.steps.map(s => e('p', {}, s))
+        ),
+    );
+
+    return result;
+}
+
+window.addEventListener('load', async () => {
+
+    
+    document.getElementById('logoutBtn').addEventListener('click', ()=>{
+        const token = sessionStorage.getItem('accessToken');
+
+        fetch('http://localhost:3030/users/logout', {
+            headers:{
+                'X-Authorization': token
+            }
+        });
+
+        sessionStorage.removeItem('accessToken');
+
+        window.location = 'http://127.0.0.1:5500/authenticationLab/base/index.html';
+    })
+
+    
+    checkUser();// this is synchronious function
+
+    const main = document.querySelector('main');
+
+    const recipes = await getRecipes();
+    const cards = recipes.map(createRecipePreview);
+
+    main.innerHTML = '';
+    cards.forEach(c => main.appendChild(c));
+});
+
+
+function checkUser(){
+    const token = sessionStorage.getItem('accessToken');
+    if(token != null){ //user
+        document.getElementById('user').style.display = 'inline-block'
+    } else{ //No such user
+        document.getElementById('guest').style.display = 'inline-block'
+    }
+}
+
+function e(type, attributes, ...content) {
+    const result = document.createElement(type);
+
+    for (let [attr, value] of Object.entries(attributes || {})) {
+        if (attr.substring(0, 2) == 'on') {
+            result.addEventListener(attr.substring(2).toLocaleLowerCase(), value);
+        } else {
+            result[attr] = value;
+        }
+    }
+
+    content = content.reduce((a, c) => a.concat(Array.isArray(c) ? c : [c]), []);
+
+    content.forEach(e => {
+        if (typeof e == 'string' || typeof e == 'number') {
+            const node = document.createTextNode(e);
+            result.appendChild(node);
+        } else {
+            result.appendChild(e);
+        }
+    });
+
+    return result;
+}
