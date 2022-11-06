@@ -64,3 +64,11 @@ a.active {
 #guest {
     display: none;
 }
+/* code added to hide */
+.home, 
+.create, 
+.login, 
+.register {
+    display:none;
+}
+

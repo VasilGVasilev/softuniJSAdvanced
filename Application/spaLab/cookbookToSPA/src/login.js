@@ -1,45 +1,29 @@
-document.querySelector('form').addEventListener('submit', onSubmit);
+const loginSection = document.querySelector('.login'); 
+// 3) industry practice - store values outside export function which is triggered with every click
+    // the same goes with eventListeners -> better outside function or build a structure that attaches and detaches them
+const loginForm = loginSection.querySelector('form'); //shortcut instead of 'document.' 
 
-async function onSubmit(event){
-    event.preventDefault();
+loginForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+    let formData = new FormData(e.currentTarget);
+    let email = formData.get('email');
+    let password = formData.get('password')
 
-    const email = formData.get('email');
-    const password = formData.get('password');
-
-    try {
-        if(email == ''){//grab by attribute with [name="email"]
-            document.querySelector('[name="email"').style.border = '1px solid red';
-            throw new Error('Email is required!');
-        } 
-        if(password == ''){
-            document.querySelector('[name="password"').style.border = '1px solid red';
-            throw new Error('Password is required!');
-        }
-
-        const response = await fetch('http://localhost:3030/users/login',{
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                email,
-                password
-            })
+    fetch('http://localhost:3030/users/login', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({email, password})
+    })
+        .then(res=>res.json())
+        .then(user => {
+            localStorage.setItem('user', JSON.stringify(user));
+            alert('successfully logged in')
         })
+})
 
-        if(response.ok == false){
-            const error = await response.json();
-            throw new Error(error.message)
-        }
-
-        const data = await response.json();
-        console.log(data.accessToken);
-        sessionStorage.setItem('accessToken', data.accessToken);
-
-        window.location = 'http://127.0.0.1:5500/authenticationLab/base/index.html';
-    } catch (err) {
-        alert(err.message);
-    }
+export function renderLogin(){
+    loginSection.style.display = 'block';
 }
