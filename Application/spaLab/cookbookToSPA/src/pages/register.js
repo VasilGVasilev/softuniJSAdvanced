@@ -1,4 +1,4 @@
-import { updateAuthState } from './auth.js'
+import { updateAuthState } from '../auth.js'
 
 const registerSection = document.querySelector('.register');
 

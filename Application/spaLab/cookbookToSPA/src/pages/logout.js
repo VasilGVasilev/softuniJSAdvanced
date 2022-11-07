@@ -1,4 +1,4 @@
-import { lougout } from './auth.js'
+import { lougout } from '../auth.js'
 
 export function renderLogout(){
     lougout();

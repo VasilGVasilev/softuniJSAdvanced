@@ -1,4 +1,4 @@
-import { updateAuthState } from './auth.js'
+import { updateAuthState } from '../auth.js'
 
 const loginSection = document.querySelector('.login'); 
 // 3) industry practice - store values outside export function which is triggered with every click
