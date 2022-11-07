@@ -1,4 +1,5 @@
 import { updateAuthState } from '../auth.js'
+import { renderHome } from './home.js'
 
 const registerSection = document.querySelector('.register');
 
@@ -40,6 +41,7 @@ async function onSubmit(event){
         let user = await response.json();
         sessionStorage.setItem('user', JSON.stringify(user));
         updateAuthState();
+        renderHome();
 
         if(response.ok == false){
             const error = await response.json();
