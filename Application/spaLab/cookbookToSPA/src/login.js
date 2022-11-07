@@ -22,7 +22,7 @@ loginForm.addEventListener('submit', (e)=>{
         .then(res=>res.json())
         .then(user => {
             sessionStorage.setItem('user', JSON.stringify(user));
-            updateAuthState();
+            updateAuthState(); // 4) update authentication State based on sessionStorage -> goto home.js
             alert('successfully logged in')
         })
 })

@@ -2,6 +2,7 @@ import { router } from './router.js';
 import { updateAuthState } from './auth.js';
 
 updateAuthState();
+router('/')
 
 const navigationElement = document.querySelector('.navigation');
 navigationElement.addEventListener('click', (e)=>{

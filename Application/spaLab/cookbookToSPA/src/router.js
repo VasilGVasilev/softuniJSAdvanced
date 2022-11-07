@@ -5,13 +5,15 @@ import { renderLogin } from './login.js';
 import { render404 } from './404.js'
 import { renderRegister } from './register.js'
 import { renderCreate } from './create.js'
+import { renderLogout } from './logout.js'
 
 // instead of if else for each seaction show in router() below hideContent() use a dictionary
 const routes = {
     '/': renderHome,
     '/login': renderLogin,
     '/register': renderRegister,
-    '/create': renderCreate
+    '/create': renderCreate,
+    '/logout': renderLogout
 }
 
 export function router(path){ // 2) use the path as a way to access routes object instead of if else and invoke the relevant to the path function -> goto login.js
