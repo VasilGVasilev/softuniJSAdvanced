@@ -1,3 +1,5 @@
+import { updateAuthState } from './auth.js'
+
 const loginSection = document.querySelector('.login'); 
 // 3) industry practice - store values outside export function which is triggered with every click
     // the same goes with eventListeners -> better outside function or build a structure that attaches and detaches them
@@ -19,7 +21,8 @@ loginForm.addEventListener('submit', (e)=>{
     })
         .then(res=>res.json())
         .then(user => {
-            localStorage.setItem('user', JSON.stringify(user));
+            sessionStorage.setItem('user', JSON.stringify(user));
+            updateAuthState();
             alert('successfully logged in')
         })
 })

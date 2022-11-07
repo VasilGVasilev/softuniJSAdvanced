@@ -1,10 +1,10 @@
 // router will change the index view depending on the url.pathname
 
-import {renderHome} from './home.js';
-import {renderLogin} from './login.js';
-import {render404} from './404.js'
-import {renderRegister} from './register.js'
-import {renderCreate} from './create.js'
+import { renderHome } from './home.js';
+import { renderLogin } from './login.js';
+import { render404 } from './404.js'
+import { renderRegister } from './register.js'
+import { renderCreate } from './create.js'
 
 // instead of if else for each seaction show in router() below hideContent() use a dictionary
 const routes = {
