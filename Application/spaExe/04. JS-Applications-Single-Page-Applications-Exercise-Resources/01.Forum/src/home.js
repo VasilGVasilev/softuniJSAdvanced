@@ -16,7 +16,6 @@ export async function showHome(ev){ //async due to rendering of data fetched fro
     
     const res = await fetch(`http://localhost:3030/jsonstore/collections/myboard/posts`);
     const posts = await res.json();
-
     container.replaceChildren(...Object.values(posts).map(createPostReview))
     
     document.getElementById('main').replaceChildren(section);
@@ -27,7 +26,7 @@ function createPostReview(post){
     element.className = 'topic-name-wrapper';
     element.innerHTML = `
     <div class="topic-name">
-        <a href="/details" class="normal" id="${post.id}">
+        <a href="/details" class="normal" id="${post._id}">
             <h2>${post.title}</h2>
         </a>
         <div class="columns">
