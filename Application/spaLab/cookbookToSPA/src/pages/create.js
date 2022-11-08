@@ -42,7 +42,7 @@ async function onSubmit(event){
         }
 
         // clean inputs after submit
-        
+        createForm.reset();
     } catch (err) {
         alert(err.message);
     }
