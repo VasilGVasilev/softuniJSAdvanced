@@ -1,4 +1,4 @@
-const section = document.getElementById('detailsView');
+const section = document.getElementById('detailsView'); //module closure!
 
 const postElement = {
     title: document.getElementById('details-title'),

@@ -1,6 +1,6 @@
 import { showDetails } from "./details.js";
 
-const section = document.getElementById('homeView');
+const section = document.getElementById('homeView'); //module closure!
 section.querySelector('div.topic-title').addEventListener('click', showDetails);
 let form = section.querySelector('form');
 form.addEventListener('submit', onSubmit);
