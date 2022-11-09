@@ -19,7 +19,7 @@ import { homePage } from './home.js'
 // import { registerPage } from './register.js'
 // import { loginPage } from './login.js'
 // import { createPage } from './create.js'
-import { updateNav } from './util.js'
+// import { updateNav } from './util.js'
 
 const routes = {
     '/': homePage,
@@ -46,7 +46,7 @@ function onNavigate(e){
 
 
 // Start application in catalog/homePage/ view -> call homePage (which will render view and fetch data to be rendered) and updateNavBar user||guest
-updateNav();
+// updateNav();
 homePage(); 
     // initally, app calls homePage and homePage: 1) renders hide/show funcs from utils.js and 2) fetches data to fill in with
     // after that: USER/GUEST can call loginPage() from app.js navbar, loginPage() calls showView() from util.js
