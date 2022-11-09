@@ -1,24 +1,39 @@
 import { showView, spinner } from "./util.js";
+import { detailsPage } from "./details.js"
 
 const section = document.querySelector('#home-page');
 const catalog = section.querySelector('#movie .card-deck.d-flex.justify-content-center'); // place . instead of space in names so that it does not search in subdiv
-// catalog.addEventListener('click', (event)=>{
-//     if(event.target.tagName == 'BUTTON'){
-
-//     }
-// })
 
 export function homePage(){
-    showView(section); //render view
-    displayMovies(); //fetch data
+    showView(section); //render initial view
+    displayMovies(); //fetch data + render 
 }
 
+
+
 async function displayMovies(){
-    catalog.replaceChildren(spinner());
 
-    const movies = await getMovies();
+    catalog.replaceChildren(spinner()); //render
 
-    catalog.replaceChildren(...movies.map(createMoviePreview));
+    const movies = await getMovies(); //fetch
+
+    catalog.replaceChildren(...movies.map(createMoviePreview)); //render
+
+    catalog.addEventListener('click', showMoreDetails) //render
+}
+
+
+
+
+// ----- view movies and view displayMore--------------------
+// ----------------------------------------------------------
+
+function showMoreDetails(e){
+    if(e.target.tagName == 'BUTTON'){
+        e.preventDefault();
+        const id = e.target.dataset.id; //link between clicked on id and id used for later fetch
+        detailsPage(id);
+    }
 }
 
 function createMoviePreview(movie){
@@ -38,7 +53,12 @@ function createMoviePreview(movie){
 
     return element;
 }
+// -----------------------------------------------------------
 
+
+
+// ----------------------fetch data---------------------------
+// -----------------------------------------------------------
 async function getMovies(){
     const res = await fetch('http://localhost:3030/data/movies');
     const data = await res.json();
