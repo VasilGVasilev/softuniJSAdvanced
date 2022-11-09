@@ -29,6 +29,7 @@ const routes = {
     '/create': createPage
 };
 
+// navbar and create have same business logic, just two different places in HTML
 document.querySelector('nav').addEventListener('click', onNavigate);// navbar clickability
 document.querySelector('#add-movie-button a').addEventListener('click', onNavigate);
 
@@ -43,6 +44,10 @@ function onNavigate(e){
     }
 }
 
+function logout(){
+    sessionStorage.clear();
+    updateNav();
+}
 
 
 // Start application in catalog/homePage/ view -> call homePage (which will render view and fetch data to be rendered) and updateNavBar user||guest
