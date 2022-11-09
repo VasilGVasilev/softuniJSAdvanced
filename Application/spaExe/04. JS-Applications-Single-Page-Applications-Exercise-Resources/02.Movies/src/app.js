@@ -46,4 +46,12 @@ import { updateNav } from './util.js'
 window.updateNav = updateNav;
 
 // Start application in catalog/homePage/ view -> call homePage (which will render view and fetch data to be rendered) and updateNavBar user||guest
-//  
+
+
+
+
+// Loading module from  was blocked ERROR
+// when first loading > easy solution: change src attributies in index.html to absolute path src="./src/app.js"
+// why happeing > because you load liveserver not on current directory but several directories higher
+// so it starts to search for the src, hrefs there for example Application JS folder and it does not find them
+// better than aboslute path is relative -> solution: save in git, open new folder -> current directory and RELAX :D
