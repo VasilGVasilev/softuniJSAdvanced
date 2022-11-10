@@ -1,6 +1,3 @@
-// No need for test.js to be in the same dir as project tested because it is based on url
-// Even better to be separated, just run server
-
 const { chromium } = require('playwright-chromium');
 const { expect } = require('chai');
 
@@ -17,22 +14,24 @@ describe('E2E tests', async function(){
     afterEach(async () => { await page.close(); });
 
     // actual test
-    it('works', async () => {
+    it('loads article titles', async () => {
+
+        // ASYNC with content we wait
         await page.goto('http://localhost:3000');
-        await page.screenshot({ path: 'site.png'});
+        await page.waitForSelector('.accordion'); // (1) before fetching content
+        const content = await page.textContent('#main');
+
+        // those test pass because server that the webapp fetches reqs is on same platform as mocha script
+        // if it is remote, here, between await page.textContent() and tests, there should be a delay to reflect
+        // on the delay in resolving promises and rendering webapp via JS and not just immediately scraping the empty HTML
+            // easy way and full of flaws - make it wait time -> await page.waitForTimeout(3000) 
+            // better -> not just wait time, but event (some section rendering) -> put it before fetching content(1)
+
+        // SYNC with content we have here
+        expect(content).to.contain('Scalable Vector Graphics'); // passing
+        expect(content).to.contain('Open standard'); // passing
+        expect(content).to.contain('Unix'); // passing
+        expect(content).to.contain('ALGOL'); // passing
+        // expect(content).to.contain('non-passing'); //failing
     })
 })
-// important CSS selector by text content:
-// Case-insensitive       await page.click('text=More') !matches 'Show More'
-// Case-sensitive        await page.click('text="More"') !doesnt match 'Show More' -> only 'More'
-
-// lite-server is started in the directory you want it: see npm install manual -> script for run && node_modules local install
-    // lite-server doesnt have the fixed root problem of live-server (installed locally)
-    // both lite and live server are bad for testing! use simpler version
-// live-server extension does work with this bug, but lite-server has it:
-
-// Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" 
-// is called; if returning a Promise, ensure it resolves. 
-// (C:\Users\vasko\OneDrive\Desktop\Cod3\softuni-JS-Advanced\Application\architecturelab\testing-demo\accordiontest\test.js)
-
-// Solution: this.timeout(5000) + making describe async
