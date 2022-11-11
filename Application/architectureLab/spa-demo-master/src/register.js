@@ -1,5 +1,6 @@
 import { showHome } from './home.js';
 import { checkUserNav } from './util.js';
+import { request } from './api.js';
 
 const section = document.getElementById('registerView');
 const form = section.querySelector('form');
@@ -19,38 +20,21 @@ async function onSubmit(event) {
     const password = formData.get('password').trim();
     const repass = formData.get('repass').trim();
 
-    try {
-        if (email == '' || password == '') {
-            throw new Error('All fields are required!');
-        }
-        if (password != repass) {
-            throw new Error('Passwords don\'t match!');
-        }
-
-        const res = await fetch('http://localhost:3030/users/register', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
-
-        if (res.ok == false) {
-            const error = await res.json();
-            throw new Error(error.message);
-        }
-
-        const { accessToken, _id } = await res.json();
-        const userData = {
-            email,
-            accessToken,
-            id: _id
-        };
-        sessionStorage.setItem('userData', JSON.stringify(userData));
-        checkUserNav();
-        showHome();
-
-    } catch (err) {
-        alert(err.message);
+    if (email == '' || password == '') {
+        return alert('All fields are required!');
     }
+    if (password != repass) {
+        return alert('Passwords don\'t match!');
+    }
+
+    const { accessToken, _id } = await request('http://localhost:3030/users/register', {email, password});
+    const userData = {
+        email,
+        accessToken,
+        id: _id
+    };
+    sessionStorage.setItem('userData', JSON.stringify(userData));
+    checkUserNav();
+    showHome();
 }
+
