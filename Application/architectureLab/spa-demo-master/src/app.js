@@ -11,9 +11,6 @@ document.querySelector('nav').addEventListener('click', onNavigate);
 document.getElementById('logoutBtn').addEventListener('click', onLogout);
 checkUserNav();
 
-// Start application in home view
-showHome(); //instead of putting in context manually, we'll have a method 
-
 const sections = {
     'homeBtn': showHome,
     'catalogBtn': showCatalog,
@@ -23,15 +20,28 @@ const sections = {
     'createBtn': showCreate,
 };
 
+goTo('homeBtn');
+
+
 function onNavigate(event) {
     if (event.target.tagName == 'A') {
-        const view = sections[event.target.id];
-
-        if (typeof view == 'function') {
+        const viewName = event.target.id;
+        if (goTo(viewName)){
             event.preventDefault();
-            view({
-                render //object with method render that will be called through ctx.render() in catalog for example with showCatalog(ctx){ctx.redner()}
-            });
         }
+
+    }
+}
+
+function goTo(viewName){
+    const view = sections[viewName]
+    if (typeof view == 'function') {
+        view({
+            render, //object with method render that will be called through ctx.render() in catalog for example with showCatalog(ctx){ctx.redner()}
+            goTo //so that you can redirect when you need -> create.js to catalog.js
+        });
+        return true;
+    } else {
+        return  false;
     }
 }

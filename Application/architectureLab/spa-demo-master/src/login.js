@@ -11,7 +11,7 @@ export function showLogin(ctx) {
     ctx.render(section)
 }
 
-async function onSubmit(event) {
+async function onSubmit(event, ctx) {
     event.preventDefault();
     const formData = new FormData(form);
 
