@@ -8,8 +8,6 @@ import { showCreate } from './create.js';
 import { render } from './domRender.js'
 
 document.querySelector('nav').addEventListener('click', onNavigate);
-document.getElementById('logoutBtn').addEventListener('click', onLogout);
-checkUserNav();
 
 const sections = {
     'homeBtn': showHome,
@@ -18,8 +16,11 @@ const sections = {
     'loginBtn': showLogin,
     'registerBtn': showRegister,
     'createBtn': showCreate,
+    'logoutBtn': onLogout
 };
 
+// start application 
+checkUserNav();
 goTo('homeBtn');
 
 
@@ -38,7 +39,8 @@ function goTo(viewName){
     if (typeof view == 'function') {
         view({
             render, //object with method render that will be called through ctx.render() in catalog for example with showCatalog(ctx){ctx.redner()}
-            goTo //so that you can redirect when you need -> create.js to catalog.js
+            goTo, //so that you can redirect when you need -> create.js to catalog.js
+            checkUserNav
         });
         return true;
     } else {

@@ -29,9 +29,14 @@ async function request(method, url, dataObj){
             throw new Error(error.message);
         }
 
-        const data = await res.json();
+        // logout in util.js uses the get() and get() uses request() which returns the res.json() no content!
+        // resulting in: JSON.parse: unexpected end of data at line 1 column 1 of the JSON data
         
-        return data;
+        if (res.status == 204){
+            return res;
+        } else {
+            return await res.json();
+        }
 
     } catch (err) {
         alert(err.message);

@@ -1,12 +1,15 @@
-import { showCatalog } from './catalog.js';
 import { post } from './api.js'
+
+let ctx = null; // better solution with templating, but now top-level ctx variable;
 
 const section = document.getElementById('createView');
 const form = section.querySelector('form');
 form.addEventListener('submit', onSubmit);
 section.remove();
 
-export function showCreate(ctx) {
+
+export function showCreate(inCtx) {
+    ctx = inCtx;
     ctx.render(section);
 }
 
@@ -25,5 +28,5 @@ async function onSubmit(event) {
         // Error boundaries are React components that catch JavaScript errors anywhere 
         // in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed.
 
-    showCatalog();
+    ctx.goTo('catalogBtn');
 }

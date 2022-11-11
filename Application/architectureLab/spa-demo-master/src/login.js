@@ -1,17 +1,18 @@
-import { showHome } from './home.js';
-import { checkUserNav } from './util.js';
 import { post } from './api.js';
+
+let ctx = null;
 
 const section = document.getElementById('loginView');
 const form = section.querySelector('form');
 form.addEventListener('submit', onSubmit);
 section.remove();
 
-export function showLogin(ctx) {
+export function showLogin(inCtx) {
+    ctx = inCtx;
     ctx.render(section)
 }
 
-async function onSubmit(event, ctx) {
+async function onSubmit(event) {
     event.preventDefault();
     const formData = new FormData(form);
 
@@ -27,6 +28,6 @@ async function onSubmit(event, ctx) {
     };
 
     sessionStorage.setItem('userData', JSON.stringify(userData));
-    checkUserNav();
-    showHome();
+    ctx.checkUserNav();
+    ctx.goTo('homeBtn');
 }

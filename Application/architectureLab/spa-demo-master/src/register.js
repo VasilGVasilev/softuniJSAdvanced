@@ -1,15 +1,15 @@
-import { showHome } from './home.js';
-import { checkUserNav } from './util.js';
 import { post } from './api.js';
 
+let ctx = null;
 const section = document.getElementById('registerView');
 const form = section.querySelector('form');
 form.addEventListener('submit', onSubmit);
 section.remove();
 
 
-export function showRegister(ctx) {
-    ctx.render(section)
+export function showRegister(inCtx) {
+    ctx = inCtx;
+    ctx.render(section);
 }
 
 async function onSubmit(event) {
@@ -34,7 +34,7 @@ async function onSubmit(event) {
         id: _id
     };
     sessionStorage.setItem('userData', JSON.stringify(userData));
-    checkUserNav();
-    showHome();
+    ctx.checkUserNav();
+    ctx.goTo('homeBtn');
 }
 
