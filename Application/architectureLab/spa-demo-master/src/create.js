@@ -8,6 +8,8 @@ const form = section.querySelector('form');
 createSubmitHandler(form, onSubmit); //(form to extract, callback(extracted data))
 section.remove();
 
+// NOTICE how eventHandler createSubmitHandler() is top-level from renderer showCreate(), because if handler is inside renderer, it will be triggered every time it is rednered
+// it is bad practice to overpopulate with eventHandlers
 
 export function showCreate(inCtx) {
     ctx = inCtx;
