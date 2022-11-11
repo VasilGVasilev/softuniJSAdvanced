@@ -1,9 +1,10 @@
 import { post } from './api.js';
+import { createSubmitHandler } from './util.js';
 
 let ctx = null;
 const section = document.getElementById('registerView');
 const form = section.querySelector('form');
-form.addEventListener('submit', onSubmit);
+createSubmitHandler(form, onSubmit);
 section.remove();
 
 
@@ -12,13 +13,7 @@ export function showRegister(inCtx) {
     ctx.render(section);
 }
 
-async function onSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(form);
-
-    const email = formData.get('email').trim();
-    const password = formData.get('password').trim();
-    const repass = formData.get('repass').trim();
+async function onSubmit({email, password, repass}) {
 
     if (email == '' || password == '') {
         return alert('All fields are required!');

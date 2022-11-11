@@ -18,3 +18,15 @@ export function onLogout(ctx) {
     ctx.checkUserNav();
     ctx.goTo('homeBtn');
 }
+
+export function createSubmitHandler(form, callback){
+    // closure
+    form.addEventListener('submit', onSubmit)
+        // extracts data to put render and fetch in create.js, register.js and login.js
+    function onSubmit(event){
+        event.preventDefault();
+        const formData = new FormData(form);
+        callback(Object.fromEntries([...formData.entries()]));
+    }
+
+}
