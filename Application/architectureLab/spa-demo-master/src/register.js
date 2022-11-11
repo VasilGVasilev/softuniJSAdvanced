@@ -27,7 +27,7 @@ async function onSubmit(event) {
         return alert('Passwords don\'t match!');
     }
 
-    const { accessToken, _id } = await request('http://localhost:3030/users/register', {email, password});
+    const { accessToken, _id } = await request('/users/register', {email, password});
     const userData = {
         email,
         accessToken,

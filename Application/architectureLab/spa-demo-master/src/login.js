@@ -18,7 +18,7 @@ async function onSubmit(event) {
     const email = formData.get('email').trim();
     const password = formData.get('password').trim();
 
-    const data = await request('http://localhost:3030/users/login', {email, password});
+    const data = await request('/users/login', {email, password});
 
     const userData = {
         email: data.email,

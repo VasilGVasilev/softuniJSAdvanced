@@ -1,4 +1,5 @@
 import { showCatalog } from './catalog.js';
+import { request } from './api.js'
 
 const section = document.getElementById('createView');
 const form = section.querySelector('form');
@@ -15,23 +16,7 @@ async function onSubmit(event) {
 
     const title = formData.get('title').trim();
 
-    try {
-        const res = await fetch('http://localhost:3030/data/movies', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Authorization': JSON.parse(sessionStorage.getItem('userData')).accessToken
-            },
-            body: JSON.stringify({ title })
-        });
-
-        if (res.ok == false) {
-            const error = await res.json();
-            throw Error(error.message);
-        }
-
-        showCatalog();
-    } catch (err) {
-        alert(err.message);
-    }
+    await request('/data/movies', {title});
+    // redirect error so that in the case of create the execution will stop at await response from request() and not load showCatalog();
+    showCatalog();
 }

@@ -1,7 +1,9 @@
+const host = 'http://localhost:3030';
+
 export async function request(url, dataObj){
     try {
 
-        const res = await fetch(url, {
+        const res = await fetch(host + url, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -20,5 +22,6 @@ export async function request(url, dataObj){
 
     } catch (err) {
         alert(err.message);
+        throw err // redirect error so that in the case of create.js the execution will stop at await response from request() and not load showCatalog();
     }
 }
