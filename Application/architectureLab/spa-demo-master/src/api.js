@@ -1,15 +1,19 @@
 const host = 'http://localhost:3030';
 
-export async function request(url, dataObj){
+async function request(method, url, dataObj){
 
     const options = {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataObj)
+        method,
+        headers: {}
     }
-    // if there is user -> apply token to options
+
+    // CHECK for method and customize options
+    if(dataObj !== undefined){ // by type and value because even falsy values are still valid values, thus, !==
+        options.headers['Content-type'] = 'application/json';
+        options.body = JSON.stringify(dataObj);
+    }
+
+    // CHECK for user and apply token to options
     const userData = JSON.parse(sessionStorage.getItem('userData'));
 
     if(userData != null){
@@ -33,3 +37,14 @@ export async function request(url, dataObj){
         throw err // redirect error so that in the case of create.js the execution will stop at await response from request() and not load showCatalog();
     }
 }
+
+// get or post
+
+export async function get(url){
+    return request('get', url);
+}
+
+export async function post(url, data){
+    return request('post', url, data);
+}
+

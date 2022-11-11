@@ -1,6 +1,6 @@
 import { showHome } from './home.js';
 import { checkUserNav } from './util.js';
-import { request } from './api.js';
+import { post } from './api.js';
 
 const section = document.getElementById('loginView');
 const form = section.querySelector('form');
@@ -18,7 +18,7 @@ async function onSubmit(event) {
     const email = formData.get('email').trim();
     const password = formData.get('password').trim();
 
-    const data = await request('/users/login', {email, password});
+    const data = await post('/users/login', {email, password});
 
     const userData = {
         email: data.email,

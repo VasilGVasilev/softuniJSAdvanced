@@ -1,6 +1,6 @@
 import { showHome } from './home.js';
 import { checkUserNav } from './util.js';
-import { request } from './api.js';
+import { post } from './api.js';
 
 const section = document.getElementById('registerView');
 const form = section.querySelector('form');
@@ -27,7 +27,7 @@ async function onSubmit(event) {
         return alert('Passwords don\'t match!');
     }
 
-    const { accessToken, _id } = await request('/users/register', {email, password});
+    const { accessToken, _id } = await post('/users/register', {email, password});
     const userData = {
         email,
         accessToken,
