@@ -5,14 +5,14 @@ import { showLogin } from './login.js';
 import { showRegister } from './register.js';
 import { checkUserNav, onLogout } from './util.js';
 import { showCreate } from './create.js';
-
+import { render } from './domRender.js'
 
 document.querySelector('nav').addEventListener('click', onNavigate);
 document.getElementById('logoutBtn').addEventListener('click', onLogout);
 checkUserNav();
 
 // Start application in home view
-showHome();
+showHome(); //instead of putting in context manually, we'll have a method 
 
 const sections = {
     'homeBtn': showHome,
@@ -29,7 +29,9 @@ function onNavigate(event) {
 
         if (typeof view == 'function') {
             event.preventDefault();
-            view();
+            view({
+                render //object with method render that will be called through ctx.render() in catalog for example with showCatalog(ctx){ctx.redner()}
+            });
         }
     }
 }

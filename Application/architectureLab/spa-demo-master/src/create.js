@@ -1,14 +1,13 @@
 import { showCatalog } from './catalog.js';
 import { post } from './api.js'
-import { render } from './domRender.js';
 
 const section = document.getElementById('createView');
 const form = section.querySelector('form');
 form.addEventListener('submit', onSubmit);
 section.remove();
 
-export function showCreate() {
-    render(section);
+export function showCreate(ctx) {
+    ctx.render(section);
 }
 
 async function onSubmit(event) {

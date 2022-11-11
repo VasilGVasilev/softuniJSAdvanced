@@ -1,8 +1,6 @@
-import { render } from "./domRender.js";
-
 const section = document.getElementById('homeView');
 section.remove();
 
-export function showHome() {
-    render(section);
+export function showHome(ctx) {
+    ctx.render(section);
 }
