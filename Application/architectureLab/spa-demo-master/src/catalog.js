@@ -1,11 +1,12 @@
 import { get } from "./api.js";
+import { render } from "./domRender.js";
 
 const section = document.getElementById('catalogView');
 const list = section.querySelector('ul');
 section.remove();
 
 export async function showCatalog() {
-    document.querySelector('main').replaceChildren(section);
+    render(section);
 
     list.replaceChildren('Loading...');
 

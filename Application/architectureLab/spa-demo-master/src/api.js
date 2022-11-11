@@ -2,6 +2,7 @@ const host = 'http://localhost:3030';
 
 async function request(method, url, dataObj){
 
+    // factor in: get request with body -> error 400
     const options = {
         method,
         headers: {}
@@ -9,7 +10,7 @@ async function request(method, url, dataObj){
 
     // CHECK for method and customize options
     if(dataObj !== undefined){ // by type and value because even falsy values are still valid values, thus, !==
-        options.headers['Content-type'] = 'application/json';
+        options.headers['Content-Type'] = 'application/json';
         options.body = JSON.stringify(dataObj);
     }
 
@@ -38,13 +39,13 @@ async function request(method, url, dataObj){
     }
 }
 
-// get or post
+// get or post Decorator functions
 
 export async function get(url){
-    return request('get', url);
+    return request('GET', url);
 }
 
 export async function post(url, data){
-    return request('post', url, data);
+    return request('POST', url, data);
 }
 

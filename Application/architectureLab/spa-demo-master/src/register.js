@@ -1,6 +1,7 @@
 import { showHome } from './home.js';
 import { checkUserNav } from './util.js';
 import { post } from './api.js';
+import { render } from './domRender.js'
 
 const section = document.getElementById('registerView');
 const form = section.querySelector('form');
@@ -9,7 +10,7 @@ section.remove();
 
 
 export function showRegister() {
-    document.querySelector('main').replaceChildren(section);
+    render(section)
 }
 
 async function onSubmit(event) {

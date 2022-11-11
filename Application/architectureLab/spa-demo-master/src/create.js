@@ -1,5 +1,6 @@
 import { showCatalog } from './catalog.js';
 import { post } from './api.js'
+import { render } from './domRender.js';
 
 const section = document.getElementById('createView');
 const form = section.querySelector('form');
@@ -7,7 +8,7 @@ form.addEventListener('submit', onSubmit);
 section.remove();
 
 export function showCreate() {
-    document.querySelector('main').replaceChildren(section);
+    render(section);
 }
 
 async function onSubmit(event) {
