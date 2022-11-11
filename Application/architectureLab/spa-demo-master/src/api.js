@@ -1,15 +1,23 @@
 const host = 'http://localhost:3030';
 
 export async function request(url, dataObj){
-    try {
 
-        const res = await fetch(host + url, {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dataObj)
-        });
+    const options = {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataObj)
+    }
+    // if there is user -> apply token to options
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+
+    if(userData != null){
+        options.headers['X-Authorization'] = JSON.parse(sessionStorage.getItem('userData')).accessToken;
+    }
+
+    try {
+        const res = await fetch(host + url, options);
 
         if (res.ok == false) {
             const error = await res.json();
