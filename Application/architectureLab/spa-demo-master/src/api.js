@@ -54,3 +54,44 @@ export async function post(url, data){
     return request('POST', url, data);
 }
 
+// also possible with .bind()
+
+export const get = request.bind(null, 'get');
+
+// NB on .bind()
+// When a function is used as a callback, this is lost.
+// Because when setTimeout gets that function, 
+// it only has a single function reference (callback), 
+// not a full object path.
+
+//  const person = {
+//     firstName:"John",
+//     lastName: "Doe",
+//     display: function () {
+//       let x = document.getElementById("demo");
+//       x.innerHTML = this.firstName + " " + this.lastName;
+//     }
+//   }  
+//   setTimeout(person.display, 3000);
+
+// We pass in a WRAPPER to maintain that complete object path:
+
+// let display = person.display.bind(person);
+// setTimeout(display, 3000);
+
+// BASIC .bind() example:
+// const person = {
+//     firstName:"John",
+//     lastName: "Doe",
+//     fullName: function () {
+//       return this.firstName + " " + this.lastName;
+//     }
+//   }
+  
+//   const member = {
+//     firstName:"Hege",
+//     lastName: "Nilsen",
+//   }
+  
+//   let fullName = person.fullName.bind(member);
+

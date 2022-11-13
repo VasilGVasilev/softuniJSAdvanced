@@ -1,11 +1,26 @@
+// views
 import { showHome } from './home.js';
 import { showCatalog } from './catalog.js';
 import { showAbout } from './about.js';
 import { showLogin } from './login.js';
 import { showRegister } from './register.js';
-import { checkUserNav, onLogout } from './util.js';
 import { showCreate } from './create.js';
+
+// utils
+import { checkUserNav, onLogout } from './util.js';
 import { render } from './domRender.js'
+
+// app.js content:
+    // routing table
+    // navigation
+    // ctx(dom, nav, session)
+
+// sampleView.js
+    // init (top-level) -> dom refs
+    //                  -> event handlers
+    // activate (ctx)
+    // view control (-> event handler) 
+
 
 document.querySelector('nav').addEventListener('click', onNavigate);
 
