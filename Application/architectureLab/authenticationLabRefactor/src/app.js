@@ -38,8 +38,8 @@ function goTo(viewName){
     const view = sections[viewName]
     if (typeof view == 'function') {
         view({
-            render, //object with method render that will be called through ctx.render() in catalog for example with showCatalog(ctx){ctx.redner()}
-            goTo, //so that you can redirect when you need -> create.js to catalog.js ALSO NOT INFINITE LOOP BECAUSE IT IS NOT CALLED if view({ goTo() }), infinite
+            render, // just replaces <main> children with specific section
+            goTo, // triggers view() which has an object render, goTo and checkUserNav to use in the relevant module
             checkUserNav
         });
         return true;
