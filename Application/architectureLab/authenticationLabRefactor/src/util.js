@@ -1,3 +1,5 @@
+import { get } from './api.js'
+
 export function checkUserNav() {
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     if (userData != null) {
