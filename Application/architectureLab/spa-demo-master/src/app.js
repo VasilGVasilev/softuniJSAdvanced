@@ -37,7 +37,7 @@ const sections = {
 // start application 
 checkUserNav();
 goTo('homeBtn');
-
+// debugger;
 
 function onNavigate(event) {
     if (event.target.tagName == 'A') {
