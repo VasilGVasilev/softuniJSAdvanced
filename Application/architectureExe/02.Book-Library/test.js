@@ -66,7 +66,19 @@ describe('Tests', async function(){ //async function due to promises, function n
 
     it('creates book', async () => {
         await page.goto(host);
-        await page.click()
+
+        await page.fill('input[name=title]', 'Title');
+        await page.fill('input[name=author]', 'Author');
+
+        const [request] = await Promise.all([ //otherwise the browser (awaiting interception like above) will block the test and submitTest will never ensue
+            page.waitForRequest((request) => request.method("POST")), //intercepts request and returns data
+            page.click('text=Submit')
+        ])
+
+        const data = JSON.parse(request.postData());
+        expect(data.title).to.equal('Title');
+        expect(data.author).to.equal('Author');
+
     })
 })
 
