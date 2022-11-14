@@ -1,6 +1,15 @@
 const { chromium } = require("playwright-chromium");
 const { expect } = require('chai');
-let host = 'http://127.0.0.1:5500/architectureExe/02.Book-Library/index.html';
+const host = 'http://127.0.0.1:5500/architectureExe/02.Book-Library/index.html';
+const mockData = {
+    "d953e5fb-a585-4d6b-92d3-ee90697398a0":{
+        "author":"J.K.Rowling",
+        "title":"Harry Potter and the Philosopher's Stone"},
+    "d953e5fb-a585-4d6b-92d3-ee90697398a1":{
+        "author":"Svetlin Nakov",
+        "title":"C# Fundamentals"
+    }
+};
 
 describe('Tests', async function(){ //async function due to promises, function not arrow because we need context
     // boilerplate
@@ -29,18 +38,35 @@ describe('Tests', async function(){ //async function due to promises, function n
     // })
 
     // if tests are end-to-end they work only with working server based on REST
+    // use page.route()
+        // Routing provides the capability to modify network requests that are made by a page.
+        // Once routing is enabled, every request matching the url pattern will stall unless it's continued, fulfilled or aborted.
+    it('loads all books', async () =>{
+        await page.route('**/jsonstore/collections/books', (route, request) => { //(1) intercept
+            route.fulfill({
+                body: JSON.stringify(mockData), //(2) return data
+                status: 200,
+                headers: {
+                    'Access-Control-Cross-Origin': '*', //(3) tells browser that server uses non-same address apps
+                    'content-type': 'application/json'
+                }
+            });
+        }) //simualtes server running
 
-    it('loads all books', async()=>{
         await page.goto(host);
         await page.click('text=Load all books'); //use logic of user clicking, thus, not id='' rather text;
         await page.waitForSelector('text=Svetlin'); //await for rendering
         const rowData = await page.$$eval('tbody tr', rows => rows.map(r => r.textContent));
-        // expect(rowData).to.contain('Svetlin');
-        // expect(rowData.join()).to.contains('Svetlin Nakov');
+
         expect(rowData[0]).to.contains('Harry Potter');
         expect(rowData[0]).to.contains('Rowling');
         expect(rowData[1]).to.contains('C# Fundamentals');
         expect(rowData[1]).to.contains('Nakov');
+    })
+
+    it('creates book', async () => {
+        await page.goto(host);
+        await page.click()
     })
 })
 
