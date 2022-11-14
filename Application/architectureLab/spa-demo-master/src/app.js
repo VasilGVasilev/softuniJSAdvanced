@@ -52,7 +52,7 @@ function onNavigate(event) {
 function goTo(viewName){
     const view = sections[viewName]
     if (typeof view == 'function') {
-        view({
+        view({ // DEPENDANCY INJECTION is a design pattern in which an object or function receives other objects or functions that it depends on
             render, //object with method render that will be called through ctx.render() in catalog for example with showCatalog(ctx){ctx.redner()}
             goTo, //so that you can redirect when you need -> create.js to catalog.js ALSO NOT INFINITE LOOP BECAUSE IT IS NOT CALLED if view({ goTo() }), infinite
             checkUserNav

@@ -37,7 +37,7 @@ function onNavigate(event) {
 function goTo(viewName){
     const view = sections[viewName]
     if (typeof view == 'function') {
-        view({
+        view({ // DEPENDANCY INJECTION is a design pattern in which an object or function receives other objects or functions that it depends on
             render, // just replaces <main> children with specific section
             goTo, // triggers view() which has an object render, goTo and checkUserNav to use in the relevant module
             checkUserNav
