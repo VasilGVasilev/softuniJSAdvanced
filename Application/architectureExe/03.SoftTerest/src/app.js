@@ -1,3 +1,10 @@
-import * as api from './api/users.js' //if you just want to load file no need for a specific file to be named
+// import * as api from './api/users.js' //if you just want to load file no need for a specific file to be named
 
-window.api = api;
+const main = document.querySelector('main');
+
+const homePage = document.getElementById('homePage');
+homePage.remove();
+
+window.showSection = () => {
+    main.appendChild(homePage);
+}
