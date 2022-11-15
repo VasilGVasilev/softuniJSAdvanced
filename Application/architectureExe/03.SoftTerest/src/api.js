@@ -4,8 +4,6 @@ async function request(url, method = 'get', data){
         headers: {}
     };
 
-
-
     try {
         const response = await fetch(url, options);
 
@@ -25,9 +23,15 @@ async function request(url, method = 'get', data){
     }
 }
 
-window.api = {
+window.api = { //for testing
     request
 }
+
+// in browser console:
+// await api.request('http://localhost:3030/data/ideas')
+// >> Array(3) [ {…}, {…}, {…} ]
+
+
 
 // NB:
 // Default function parameters allow named parameters to be 
