@@ -22,8 +22,12 @@ const links = {
 };
 
 const context = {
-    showSection
+    showSection,
+    goto
 }
+
+// start application in homeView
+context.goto('/');
 
 function showSection(section){
     main.replaceChildren(section);
@@ -38,10 +42,14 @@ function onNavigate(event){
     if (target.tagName == 'A'){ //better html <li><a></a></li> <a> is deepest
         event.preventDefault();
         const url = new URL(target.href);
-        const handler = links[url.pathname];
-        if (typeof handler == 'function'){
-            handler(context)
-        }
+        goto(url.pathname);
+    }
+}
+
+function goto(path){
+    const handler = links[path];
+    if (typeof handler == 'function'){
+        handler(context)
     }
 }
 
