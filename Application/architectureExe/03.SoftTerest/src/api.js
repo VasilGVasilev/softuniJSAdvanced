@@ -1,3 +1,5 @@
+const host = 'http://localhost:3030'; // reoccuring url beginning abstracted on top-level
+
 async function request(url, method = 'get', data){ 
     const options = {
         method,
@@ -10,7 +12,7 @@ async function request(url, method = 'get', data){
     }
 
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(host + url, options);
 
         if (response.ok != true){
             const error = await response.json();
@@ -28,8 +30,28 @@ async function request(url, method = 'get', data){
     }
 }
 
-window.api = { //for testing
-    request
+
+async function get(url){ // url is only specific part not 'localhost'
+    return request(url)
+}
+
+async function post(url, data){
+    return request(url, 'post', data)
+}
+
+async function put(url, data){
+    return request(url, 'put', data)
+}
+
+async function del(url, data){
+    return request(url, 'delete', data)
+}
+
+export {
+    get,
+    post,
+    put,
+    del as delete
 }
 
 // in browser console:
