@@ -3,8 +3,24 @@
 const main = document.querySelector('main');
 
 const homePage = document.getElementById('homePage');
-homePage.remove();
+const registerPage = document.getElementById('registerPage');
+const loginPage = document.getElementById('loginPage');
+const catalogPage = document.getElementById('dashboard-holder');
+const detailsPage = document.getElementById('detailsPage');
+const createPage = document.getElementById('createPage');
 
-window.showSection = () => {
-    main.appendChild(homePage);
+document.getElementById('views').remove(); //there is a display:none to hide the initial render before sections stored to vars and removed from DOM
+
+const links = {
+    '/': homePage,
+    '/catalog': catalogPage,
+    '/login': loginPage,
+    '/register': registerPage,
+    '/details': detailsPage,
+    '/create': createPage
+};
+
+window.showSection = (name) => {
+    const section = links[name];
+    main.replaceChildren(section);
 }
