@@ -19,7 +19,30 @@ const links = {
     '/create': showCreate
 };
 
-window.showSection = (name) => {
-    const section = links[name];
+const context = {
+    showSection
+}
+
+window.displayHome = () => {
+    showHome(context); 
+}
+function showSection(section){
     main.replaceChildren(section);
 }
+
+// order of calling 
+// window.displayHome -> showHome(context)
+// showHome(context) -> context.showSection(section);
+// context.showSection(section) -> showSection(section)
+// showSection(section) -> main.replaceChidlren(section)
+
+// displayHome calls showHome from home.js
+// we put context obj as a argument in showHome
+// showHome uses this argument and accesses its only method -> showSection
+// context.showSection(section) is written so that it is called with sections as an argument
+// showSection is executed -> main.replaceChildren with the parameter section passed in
+
+// dependancy injection eliminating the need to import/export functionlaity
+// THUS:
+// we make an object/context/ with reusable functions
+// pass it in to every instance that will use these functions
