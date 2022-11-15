@@ -11,10 +11,20 @@ async function request(url, method = 'get', data){
         options.body = JSON.stringify(data);
     }
 
+    const user = JSON.parse(localStorage.getItem('user')); //parse to avoid return null
+    if(user){
+        const token = user.accessToken;
+        options.headers['X-Authorization'] = token;
+    }
+
+
     try {
         const response = await fetch(host + url, options);
 
         if (response.ok != true){
+            if(response.status == 403){
+                localStorage.removeItem('user'); 
+            } //forbidden due to unmatching token for example, when server is restarted, but localstorage saves the old token -> solution: if 403 clear localStorage  !!!! possibly not needed for sessionstorage due to expiration when browser tab is closed
             const error = await response.json();
             throw new Error(error.message);
         }
