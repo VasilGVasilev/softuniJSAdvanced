@@ -4,6 +4,11 @@ async function request(url, method = 'get', data){
         headers: {}
     };
 
+    if(data != undefined){
+        options.headers['content-type'] = 'application/json';
+        options.body = JSON.stringify(data);
+    }
+
     try {
         const response = await fetch(url, options);
 
