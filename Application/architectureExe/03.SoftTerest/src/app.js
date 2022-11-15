@@ -1,5 +1,6 @@
 // import * as api from './api/users.js' //if you just want to load file no need for a specific file to be named
 
+import { intialize } from "./router.js";
 import { showCatalog } from "./views/catalog.js";
 import { showCreate } from "./views/create.js";
 import { showDetails } from "./views/details.js";
@@ -7,10 +8,7 @@ import { showHome } from "./views/home.js";
 import { showLogin } from "./views/login.js";
 import { showRegister } from "./views/register.js";
 
-const main = document.querySelector('main');
 document.getElementById('views').remove(); //there is a display:none to hide the initial render before sections stored to vars and removed from DOM
-
-document.querySelector('nav').addEventListener('click', onNavigate);
 
 const links = {
     '/': showHome,
@@ -20,38 +18,12 @@ const links = {
     '/details': showDetails,
     '/create': showCreate
 };
+const router = intialize(links); // router has two parts see router.js
 
-const context = {
-    showSection,
-    goto
-}
 
 // start application in homeView
-context.goto('/');
+router.goTo('/');
 
-function showSection(section){
-    main.replaceChildren(section);
-}
-
-function onNavigate(event){
-    let target = event.target;
-    if(target.tagName == 'IMG'){ //bad html <a><img></a> <a> is not deepest
-        target = target.parentElement;
-    }
-    
-    if (target.tagName == 'A'){ //better html <li><a></a></li> <a> is deepest
-        event.preventDefault();
-        const url = new URL(target.href);
-        goto(url.pathname);
-    }
-}
-
-function goto(path){
-    const handler = links[path];
-    if (typeof handler == 'function'){
-        handler(context)
-    }
-}
 
 // order of calling 
 // window.displayHome -> showHome(context)
