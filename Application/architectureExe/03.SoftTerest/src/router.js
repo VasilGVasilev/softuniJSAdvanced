@@ -30,7 +30,7 @@ export function intialize(links){
         if (target.tagName == 'A'){ //better html <li><a></a></li> <a> is deepest
             event.preventDefault();
             const url = new URL(target.href);
-            goto(url.pathname);
+            goTo(url.pathname);
         }
     }
 
