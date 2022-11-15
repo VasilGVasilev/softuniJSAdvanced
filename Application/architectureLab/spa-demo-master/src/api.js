@@ -56,9 +56,13 @@ export async function post(url, data){
 
 // also possible with .bind()
 
-export const get = request.bind(null, 'get');
+// export const get = request.bind(null, 'get');
 
-// NB on .bind()
+// null is first arg, it represents the context attached
+// BUT we dont use bind to attach context, since request() does not need context -> no use of this keyword
+// we use .bind() for the wrapping functionality -> emphasis on args after null, we use them in request()
+
+// NB on .bind() in GENERAL
 // When a function is used as a callback, this is lost.
 // Because when setTimeout gets that function, 
 // it only has a single function reference (callback), 
