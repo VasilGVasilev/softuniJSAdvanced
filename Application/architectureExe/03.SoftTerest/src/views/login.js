@@ -1,5 +1,5 @@
 const section = document.getElementById('loginPage');
 
-export function showLogin(){
-    
+export function showLogin(context){
+    context.showSection(section)
 }

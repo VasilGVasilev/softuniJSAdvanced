@@ -1,4 +1,4 @@
-const createPage = document.getElementById('createPage');
-export function showCreate(){
-    
+const section = document.getElementById('createPage');
+export function showCreate(context){
+    context.showSection(section)
 }

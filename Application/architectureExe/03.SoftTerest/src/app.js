@@ -10,6 +10,8 @@ import { showRegister } from "./views/register.js";
 const main = document.querySelector('main');
 document.getElementById('views').remove(); //there is a display:none to hide the initial render before sections stored to vars and removed from DOM
 
+document.querySelector('nav').addEventListener('click', onNavigate);
+
 const links = {
     '/': showHome,
     '/register': showRegister,
@@ -23,11 +25,24 @@ const context = {
     showSection
 }
 
-window.displayHome = () => {
-    showHome(context); 
-}
 function showSection(section){
     main.replaceChildren(section);
+}
+
+function onNavigate(event){
+    let target = event.target;
+    if(target.tagName == 'IMG'){ //bad html <a><img></a> <a> is not deepest
+        target = target.parentElement;
+    }
+    
+    if (target.tagName == 'A'){ //better html <li><a></a></li> <a> is deepest
+        event.preventDefault();
+        const url = new URL(target.href);
+        const handler = links[url.pathname];
+        if (typeof handler == 'function'){
+            handler(context)
+        }
+    }
 }
 
 // order of calling 
