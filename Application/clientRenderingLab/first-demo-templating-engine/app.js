@@ -14,3 +14,6 @@ async function start(){
     const navTemplate = createTemplate(navTemplateAsString);
     nav.innerHTML = links.map(navTemplate).join('');
 }
+
+// even faster than regex would be to divide ex. article
+// into chunks 4 and 3 matches which will be Big O(1)
