@@ -1,11 +1,12 @@
-import {data} from './data.js';
+import {data, nav as links} from './data.js';
 
 
 start();
 function start(){
     const main = document.querySelector('main');
-    
+    const nav = document.querySelector('nav ul');
     main.innerHTML = data.map(articleTemplate).join('');
+    nav.innerHTML = links.map(navTemplate).join('');
 }
 
 function articleTemplate(article){
@@ -19,4 +20,8 @@ function articleTemplate(article){
     </div>
     <footer>Author: ${article.author}</footer>
     </article>`
+}
+
+function navTemplate(nav){
+    return `<li><a href="${nav.href}">${nav.label}</a></li>`;
 }
