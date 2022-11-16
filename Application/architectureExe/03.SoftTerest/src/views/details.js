@@ -1,15 +1,29 @@
-import { getById } from "../api/data.js";
+import { deleteById, getById } from "../api/data.js";
 
 const section = document.getElementById('detailsPage');
 
 export async function showDetails(context, id){
     const idea = await getById(id);
-    console.log(idea);
-    context.showSection(section)
-    section.innerHTML = createIdeaHTML(idea);
+    context.showSection(section);
+
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    const isOwner = user && user._id == idea._ownerId;
+    section.innerHTML = createIdeaHTML(idea, isOwner);
+
+    if(isOwner){
+        section.querySelector('#deleteBtn').addEventListener('click', async (event) => {
+            event.preventDefault();
+            const choice = confirm('Are you sure you want to delete this idea?') //blocking operation sync
+            if(choice){
+                await deleteById(id);
+                context.goTo('/catalog')
+            }
+        })
+    }
 }
 
-function createIdeaHTML(idea){ //fragment instead of div because the original html is 3 elements with no common parent ! container is not a parent
+function createIdeaHTML(idea, isOwner){ //fragment instead of div because the original html is 3 elements with no common parent ! container is not a parent
     let html = `
     <img class="det-img" src="${idea.img}" />
     <div class="desc">
@@ -19,8 +33,7 @@ function createIdeaHTML(idea){ //fragment instead of div because the original ht
     </div>
     `
     // only owner user can  delete recipe
-    const user = JSON.parse(localStorage.getItem('user'));
-    if(user && user._id == idea._ownerId){
+    if(isOwner){
         html += `
         <div class="text-center">
             <a id="deleteBtn" class="btn detb" href="">Delete</a>

@@ -17,3 +17,7 @@ export async function getById(id){
 export async function createIdea(ideaData){
     return api.post(endopoints.create, ideaData);
 }
+
+export async function deleteById(id){
+    return api.delete(endopoints.ideaById + id)
+}

@@ -15,8 +15,9 @@ export async function register(email, password){
     const user = await post(endpoints.register, {email, password}) 
     localStorage.setItem('user', JSON.stringify(user));
 }
-export async function logout(){
+export async function logout(ctx){
     get(endpoints.logout);
     localStorage.removeItem('user');
-    
+    ctx.updateNav();
+    ctx.goTo('/')
 }
