@@ -24,5 +24,6 @@ async function onSubmit(event){
         description,
         img
     })
+    form.reset();
     ctx.goTo('/catalog')
 }
