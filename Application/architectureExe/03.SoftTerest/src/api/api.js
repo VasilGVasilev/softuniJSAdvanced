@@ -1,6 +1,6 @@
 const host = 'http://localhost:3030'; // reoccuring url beginning abstracted on top-level
 
-async function request(url, method = 'get', data){ 
+async function request(method, url, data){ 
     const options = {
         method,
         headers: {}
@@ -41,21 +41,10 @@ async function request(url, method = 'get', data){
 }
 
 
-async function get(url){ // url is only specific part not 'localhost'
-    return request(url)
-}
-
-async function post(url, data){
-    return request(url, 'post', data)
-}
-
-async function put(url, data){
-    return request(url, 'put', data)
-}
-
-async function del(url, data){
-    return request(url, 'delete', data)
-}
+const get = request.bind(null, 'GET');
+const post = request.bind(null, 'POST');
+const put = request.bind(null, 'PUT');
+const del = request.bind(null, 'DELETE');
 
 export {
     get,

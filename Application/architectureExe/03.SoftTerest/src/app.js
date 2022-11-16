@@ -1,5 +1,6 @@
 // import * as api from './api/users.js' //if you just want to load file no need for a specific file to be named
 
+import { logout } from "./api/users.js";
 import { intialize } from "./router.js";
 import { showCatalog } from "./views/catalog.js";
 import { showCreate } from "./views/create.js";
@@ -16,7 +17,8 @@ const links = {
     '/login': showLogin,
     '/catalog': showCatalog,
     '/details': showDetails,
-    '/create': showCreate
+    '/create': showCreate,
+    '/logout': logout
 };
 const router = intialize(links); // router has two parts see router.js
 
