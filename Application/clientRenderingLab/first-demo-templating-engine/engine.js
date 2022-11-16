@@ -1,0 +1,1 @@
+// function that will create the two simple template functions in previous commit (based on the htmls in templates folder)
