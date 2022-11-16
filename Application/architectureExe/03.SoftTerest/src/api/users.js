@@ -18,4 +18,5 @@ export async function register(email, password){
 export async function logout(){
     get(endpoints.logout);
     localStorage.removeItem('user');
+    
 }

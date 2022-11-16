@@ -24,6 +24,7 @@ const router = intialize(links); // router has two parts see router.js
 
 
 // start application in homeView
+router.updateNav();
 router.goTo('/');
 
 
