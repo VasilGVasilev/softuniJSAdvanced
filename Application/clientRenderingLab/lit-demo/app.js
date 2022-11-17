@@ -2,6 +2,8 @@ import { html, render } from 'https://unpkg.com/lit-html?module'; //this is exec
 
 import { data } from './data.js';
 
+const timerTemplate = (time) => html`<h3>${time.hours}:${time.minutes}:${time.seconds}</h3>`
+
 const greetingTemplate = (name, count) => html`<h1>Hello there, ${name}. Clicked ${count}`;
 
 const articleTemplate = (article) => html`
@@ -20,8 +22,19 @@ function start(){
 
     const main = document.querySelector('main');
 
+    setInterval(updateTime, 1000);
     // render is not appendChild, more like replaceChildren so it lit-html puts only its latest input, but doesnt replace hardcoded html
     render(data.map(articleTemplate), main)
+}
+
+function updateTime(){
+    const now = new Date();
+    const time = {
+        hours: now.getHours(),
+        minutes: ('0' + now.getMinutes()).slice(-2),
+        seconds: ('0' + now.getSeconds()).slice(-2)
+    }
+    render(timerTemplate(time), document.querySelector('#timer'));
 }
 
 function onClick(){
