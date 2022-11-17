@@ -15,18 +15,3 @@ export const data = [
         "content": "Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator."
     }
 ]
-
-export const nav = [
-    {
-        href: '/',
-        label: 'Home'
-    },
-    {
-        href: '/catalog',
-        label: 'Catalog'
-    },    
-    {
-        href: '/about',
-        label: 'About'
-    }
-]
