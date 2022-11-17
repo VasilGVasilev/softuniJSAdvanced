@@ -1,19 +1,12 @@
 import { html, render } from 'https://unpkg.com/lit-html?module'; //this is executed by browser
-
+import { articleTemplate } from './article.js';
 import { data } from './data.js';
 
 const timerTemplate = (time) => html`<h3>${time.hours}:${time.minutes}:${time.seconds}</h3>`
 
 const greetingTemplate = (name, count) => html`<h1>Hello there, ${name}. Clicked ${count}`;
 
-const articleTemplate = (article) => html`
-<article>
-<h2>${article.title}</h2> 
-<div class="content">
-<p>${article.content}</p>
-</div>
-<footer>Author: ${article.author}</footer>
-</article>`;
+
 
 start();
 
