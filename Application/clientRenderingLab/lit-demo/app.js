@@ -17,9 +17,12 @@ function start(){
 
     // setInterval(updateTime, 1000);
     // render is not appendChild, more like replaceChildren so it lit-html puts only its latest input, but doesnt replace hardcoded html
-    render(data.map(articleTemplate), main)
+    render(data.map(a => articleTemplate(a, onAlert)), main)
 }
 
+function onAlert(event){
+    console.log(event.target);
+}
 
 function onClick(){
     const header = document.querySelector('header');
