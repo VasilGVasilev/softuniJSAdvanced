@@ -3,22 +3,22 @@ import {html, render} from 'https://unpkg.com/lit-html?module'; //this is execut
 // html === createTemplate from first demo
 // render === arrow function that createTemplate returns
 
-const template = () => html`<h2>Hello there</h2>`;
+const template = (name) => html`<h2>Hello there, ${name}</h2>`;
 
 start();
 
 function start(){
     const main = document.querySelector('main');
 
-    const templateResult = template(); //that returns an object that cannot be attached directly to DOM -> use render
+    const templateResult = template('Azis'); //that returns an object that cannot be attached directly to DOM -> use render
     
     render(templateResult, main);
 }
 
-const name = 'Peter'
-const age = '19'
+// const name = 'Peter'
+// const age = '19'
 
-// greet`I'm ${name}. I'm ${age} years old.`
+// greet`I'm ${name}. I'm ${age} years old.` //`` is like ()
 
 // function greet(){
 //     console.log(arguments[0]);
