@@ -1,4 +1,4 @@
-import { html, render } from 'https://unpkg.com/lit-html?module'; //this is executed by browser
+import { html } from 'https://unpkg.com/lit-html?module'; //this is executed by browser
 
 
 export const articleTemplate = (article) => html`
@@ -7,8 +7,8 @@ export const articleTemplate = (article) => html`
 <div class="content">
 <p>${article.content}</p>
 </div>
-${footerTemplate(article.author)}
+${html`<footer>Author: ${author}</footer>`}
 </article>`;
 
-const footerTemplate = (author) => html`<footer>Author: ${author}</footer>`
+
 
