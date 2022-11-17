@@ -30,5 +30,6 @@ function start(){
 // >> Peter 
 // >> 19
 
-// template engine's first argument divides the original unaltered string in chuncks that surround the specific custamizable strings
-// other arguments are the custamizable string
+// template object:
+// strings array: template engine's first argument divides the original unaltered string in chuncks that surround the specific custamizable strings
+// values array: other arguments are the custamizable string
