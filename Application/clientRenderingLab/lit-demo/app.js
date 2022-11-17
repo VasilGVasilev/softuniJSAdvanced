@@ -2,7 +2,9 @@ import { html, render } from 'https://unpkg.com/lit-html?module'; //this is exec
 
 import { data } from './data.js';
 
-const templateArticle = (article) => html`
+const greetingTemplate = (name, count) => html`<h1>Hello there, ${name}. Clicked ${count}`;
+
+const articleTemplate = (article) => html`
 <article>
 <h2>${article.title}</h2> 
 <div class="content">
@@ -14,11 +16,29 @@ const templateArticle = (article) => html`
 start();
 
 function start(){
+    document.getElementById('reloadBtn').addEventListener('click', onClick);
+
     const main = document.querySelector('main');
 
     // render is not appendChild, more like replaceChildren so it lit-html puts only its latest input, but doesnt replace hardcoded html
-    render(data.map(templateArticle), main)
+    render(data.map(articleTemplate), main)
 }
+
+function onClick(){
+    const header = document.querySelector('header');
+    render(greetingTemplate('Peter', 1), header)
+}
+
+// every time we click on reloadBtn we create new element 
+// via greetingTemplate and render it to the header
+// but lit-html compares what we try to render and what is already rendered
+// there is no difference => no update so DOM not congested unnecessarily
+
+
+
+
+
+
 
 // you create the template and put in e to use it later
 // for key.value pairing article.title etc when accessing data with array of objects
