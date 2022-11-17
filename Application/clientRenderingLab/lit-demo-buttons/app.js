@@ -15,7 +15,12 @@ function start(){
 
 function update(){ // in fact it renders
     render(formTemplate(onSubmit), header);
-    render(data.map(articleTemplate), main);
+    render(data.map(articleTemplate.bind(null, onDelete)), main);
+}
+
+function onDelete(index){
+    data.splice(index, 1);
+    update();
 }
 
 
