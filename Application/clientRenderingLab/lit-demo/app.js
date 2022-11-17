@@ -15,9 +15,15 @@ function start(){
 
     const main = document.querySelector('main');
 
-    setInterval(updateTime, 1000);
+    // setInterval(updateTime, 1000);
     // render is not appendChild, more like replaceChildren so it lit-html puts only its latest input, but doesnt replace hardcoded html
     render(data.map(articleTemplate), main)
+}
+
+
+function onClick(){
+    const header = document.querySelector('header');
+    render(greetingTemplate('Peter', 1), header)
 }
 
 function updateTime(){
@@ -29,12 +35,6 @@ function updateTime(){
     }
     render(timerTemplate(time), document.querySelector('#timer'));
 }
-
-function onClick(){
-    const header = document.querySelector('header');
-    render(greetingTemplate('Peter', 1), header)
-}
-
 // every time we click on reloadBtn we create new element 
 // via greetingTemplate and render it to the header
 // but lit-html compares what we try to render and what is already rendered
