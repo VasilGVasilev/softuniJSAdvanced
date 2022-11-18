@@ -28,6 +28,11 @@ function start(){
 }
 
 function handleClick(e){
-    let divCat = e.target.parentElement.children[1]
-    divCat.style.display = 'block';
+    let divCat = e.target.parentElement.querySelector('.status') // or children[1]
+    if(divCat.style.display == 'block'){
+        divCat.style.display = 'none';
+    } else {
+        divCat.style.display = 'block'
+    }
 }
+    
