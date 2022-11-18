@@ -34,4 +34,5 @@ function search() {
    searchText.value = '';
    results.textContent = `Results: ${counter}`
    counter = 0;
+
 }
