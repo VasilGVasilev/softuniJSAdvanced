@@ -19,10 +19,24 @@
         <!-- Page content -->
     </main>
     <script>
+        const main = document.querySelector('main');
+
         window.addEventListener('hashchange', onChange);
 
         function onChange(){
-            console.log(window.location.hash)
+            const hash = window.location.hash;
+
+            switch(hash){
+                case '#home':
+                    main.innerHTML = '<h2>Home Page</h2>'
+                    break;
+                case '#catalog':
+                    main.innerHTML = '<h2>Catalog</h2>'
+                    break;
+                case '#about':
+                    main.innerHTML = '<h2>About Page</h2>'
+                    break;
+            }
         }
 
     </script>
