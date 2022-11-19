@@ -23,6 +23,9 @@
 
         window.addEventListener('hashchange', onChange);
 
+        // start application
+        onChange();
+
         function onChange(){
             const hash = window.location.hash;
 
