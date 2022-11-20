@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Routing Demo</h1>
+
+    <nav>
+        <a href="/home">Home</a>
+        <a href="/catalog">Catalog</a>
+        <a href="/about">About</a>
+    </nav>
+
+    <main>
+        <!-- Page content -->
+    </main>
+    <script>
+        const views = {
+            '/home': () => '<h2>Home Page</h2><p>Welcome to our site!</p>',
+            '/catalog': () => '<h2>Catalog Page</h2><ul><li>Product 1</li><li>Product 2</li><li>Product 3</li></ul>',
+            '/about': () => '<h2>About Page</h2><p>Contact: +1-555-5688</p>'
+        }
+    
+        const main = document.querySelector('main');
+    
+        window.addEventListener('click', onClick);
+    
+        function onClick(e){
+            e.preventDefault();
+            let name;
+            let url;
+            if(e.target.tagName == 'A'){
+                url = new URL (e.target.href)
+                name = url.pathname;
+            }
+        
+            history.pushState(null, null, url);
+
+
+            const view = views[name];
+    
+            if(typeof view == 'function'){
+                main.innerHTML = view()
+            }
+    
+        }
+
+    
+    </script>
+
+
+</body>
+</html>
+
