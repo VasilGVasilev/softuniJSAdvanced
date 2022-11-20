@@ -35,7 +35,7 @@
             if(e.target.tagName == 'A'){
                 e.preventDefault();
                 window.history.pushState(null, null, e.target.href)
-                onChange()
+                onChange() //clicking on links does not trigger popstate eventListener even if changes are reflected in history API 
             }
             
         });
