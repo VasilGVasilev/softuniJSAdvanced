@@ -4,11 +4,15 @@ import { catalogView } from './views/catalog.js';
 import { registerView } from './views/register.js';
 import { logout } from './views/logout.js';
 import { createView } from './views/create.js';
+import { myPublicationsView } from './views/my-publications.js';
+import { detailsView } from './views/details.js';
 
+page('/my-publications', myPublicationsView)
 page('/create', createView)
 page('/register', registerView)
 page('/catalog', catalogView)
 page('/login', loginView)
+page('/details/:detailsId', detailsView)
 page.start();
 
 // logout
