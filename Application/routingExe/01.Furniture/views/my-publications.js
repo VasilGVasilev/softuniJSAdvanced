@@ -20,7 +20,7 @@ const myPublicationsTemplate = (catalog) => html `
                     <p>Price: <span>${c.price} $</span></p>
                 </footer>
                 <div>
-                    <a href="/details.${c._id}" class="btn btn-info">Details</a>
+                    <a href="/details/${c._id}" class="btn btn-info">Details</a>
                 </div>
         </div>
     </div>
