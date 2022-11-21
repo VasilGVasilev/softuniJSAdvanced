@@ -1,8 +1,18 @@
 import page from './node_modules/page/page.mjs';
-import { html, render } from './node_modules/lit-html/lit-html.js'
+import { loginView } from './views/login.js'
+import { catalogView } from './views/catalog.js';
+import { registerView } from './views/register.js';
+import { logout } from './views/logout.js';
+import { createView } from './views/create.js';
 
+page('/create', createView)
+page('/register', registerView)
+page('/catalog', catalogView)
+page('/login', loginView)
+page.start();
 
-
+// logout
+document.getElementById('logoutBtn').addEventListener('click', logout);
 
 // show user/guest navbat
 export const updateInfo = () => {
@@ -18,5 +28,3 @@ export const updateInfo = () => {
     }
 }
 updateInfo();
-
-page.start();
