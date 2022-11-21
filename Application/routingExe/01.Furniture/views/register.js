@@ -53,7 +53,13 @@ function onSubmit(e){
     })
     .then( res => {
         if(!res.ok){
-            throw new Error('Invalid email/password')
+            if(res.status === 409){
+                throw new Error('User already registered')
+
+            } else {
+                throw new Error('Invalid email/password')
+
+            }
         }
         return res.json()
     })
