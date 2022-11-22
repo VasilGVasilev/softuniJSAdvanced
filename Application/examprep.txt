@@ -1,1 +1,2 @@
 see modularlab>v for comment feature
+see routingexe for simple skeleton for navbar, login,register.logout, details but need to add delete and edit
