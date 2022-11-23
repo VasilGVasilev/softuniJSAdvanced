@@ -3,8 +3,11 @@ import { updateNav } from './middlewares/navbar.js';
 import { decorateContext } from './middlewares/render.js';
 import { addSession } from './middlewares/session.js';
 
-page(addSession)
-page(updateNav)
-page(decorateContext)
+
+// separation of concerns
+page(addSession) // checks localStorage user
+page(updateNav) //navigation is dealt with separately from main section depending on localStorage info which in itelf is abstracted
+page(decorateContext) //rendering functionality 
+
 
 page.start();
