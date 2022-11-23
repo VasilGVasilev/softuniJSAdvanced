@@ -14,7 +14,7 @@ const loginTemplate = (onSubmit) => html`
 export function showLogin(ctx) {
     ctx.render(loginTemplate(onSubmit));
 
-    async function onSubmit(event) {
+    async function onSubmit(event) { //inside showLogin because you use ctx.page.redirect
         event.preventDefault();
         const formData = new FormData(event.target);
 

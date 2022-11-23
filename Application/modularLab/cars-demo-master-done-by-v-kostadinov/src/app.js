@@ -10,7 +10,7 @@ import { parseQueryString, userSession } from './util.js';
 
 const main = document.querySelector('main');
 
-page(decorateContext);
+page(decorateContext); //middleware to have continuos methods attached to same ctx and usable thoughout all levels of abstraction
 page(parseQueryString);
 page(userSession);
 
