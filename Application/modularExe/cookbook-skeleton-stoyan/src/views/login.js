@@ -3,7 +3,7 @@ import { login } from "../api/user.js"
 import { createSubmitHandler } from "../util.js"
 
 // function expression cannot be hoisted, tho
-const loginTemplate = (onSubmit) => html `
+const loginTemplate = (onSubmit) => html`
     <section id="login">
         <article>
             <h2>Login</h2>
@@ -16,12 +16,30 @@ const loginTemplate = (onSubmit) => html `
     </section>
     `
 
-export function loginPage(ctx){
-    ctx.render(loginTemplate(createSubmitHandler(ctx, onSubmit)))
-}
-
-export async function onSubmit(ctx, data, event){
+async function onSubmit(ctx, data, event){
     await login(data.email, data.password);
     event.target.reset();
     ctx.page.redirect('/catalog');
 }
+
+export function loginPage(ctx){
+    ctx.render(loginTemplate(createSubmitHandler(ctx, onSubmit)))
+} 
+
+// alternative:
+
+
+
+// export function loginPage(ctx){
+//     ctx.render(loginTemplate(onSubmit));
+
+//     async function onSubmit(event){
+//         event.preventDefualt();
+//         let formData = Object.entries(new FormData(event.target))
+
+//         await login(formData.email, formData.password);
+
+//         event.target.reset();
+//         ctx.page.redirect('/catalog');
+//     }
+// } 
