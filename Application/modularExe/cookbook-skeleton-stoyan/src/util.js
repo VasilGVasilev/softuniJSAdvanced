@@ -31,7 +31,11 @@ export function setUserData(data) {
 export function createSubmitHandler(ctx, handler) {
     return function (event) {
         event.preventDefault()
-        let formData = Object.entries(new FormData(event.target))
+        // let m = new FormData(event.target)
+        // console.log(m);
+        // >> FormData { email → "peter@abv.bg", password → "123456" 
+        // thus => Object.fromEntries()
+        let formData = Object.fromEntries(new FormData(event.target))
         handler(ctx, formData, event)
     }
 }

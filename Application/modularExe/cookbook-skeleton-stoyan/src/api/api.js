@@ -34,7 +34,7 @@ async function request(method, url, data) {
             return response.json()
         }
     } catch (error) {
-        alert(err.message)
+        alert(error.message)
         throw error; //if not - catch will throw an error for request() but you want to pass it on to the calling function get(), post() etc.
     }
 }
