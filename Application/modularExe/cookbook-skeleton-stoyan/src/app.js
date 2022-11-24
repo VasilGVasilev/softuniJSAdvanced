@@ -4,6 +4,7 @@ import { decorateContext } from './middlewares/render.js';
 import { addSession } from './middlewares/session.js';
 import { homePage } from './views/home.js';
 import { loginPage } from './views/login.js';
+import { registerPage } from './views/register.js';
 
 
 // separation of concerns
@@ -12,5 +13,6 @@ page(updateNav) //navigation is dealt with separately from main section dependin
 page(decorateContext) //rendering functionality 
 page('/', homePage)
 page('/login', loginPage)
+page('/register', registerPage)
 
 page.start();
