@@ -20,7 +20,7 @@ export async function getById(id) {
 
 export async function getAll(page = 1) {
     const [ recipes, count] = await Promise.all([
-        api.get(endpoints.recipes + (page -1) * pageSize),
+        api.get(endpoints.recipes + (page - 1) * pageSize),
         api.get(endpoints.count)
     ]);
 
