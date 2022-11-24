@@ -1,6 +1,7 @@
 import { html, nothing } from "../../node_modules/lit-html/lit-html.js"
 // nothing for ternary operator choosing template
 import * as recipeService from '../api/recipe.js'
+
 const homeTemplate = (recipes) => html`
 <section id="home">
     <div class="hero">

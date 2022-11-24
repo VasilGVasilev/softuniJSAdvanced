@@ -1,0 +1,42 @@
+createSubmitHandler():
+
+- A pure function 
+- It accepts an argument and returns it
+
+    ƒ returningFunction(e){
+        return e;
+    }
+
+Anonymous():
+
+- A function that adds arguments and returns an anonymous one that also add via currying
+    
+    function create(handler){
+        return function ( n = 6 ){
+            let m = n;
+            handler()
+        }
+    }
+
+Combined (returns the returning function):
+
+    returningFunction(create)
+
+
+        ƒ create(handler){
+            return function (){
+                let m = 6;
+                handler()
+            }
+        }
+
+Combined and invoked (returns the return of the anonymous funct):
+
+
+    returningFunction(create())
+    
+        ƒ (){
+                let m = 6;
+                handler()
+            }
+
