@@ -9,6 +9,7 @@ import { homePage } from './views/home.js';
 import { loginPage } from './views/login.js';
 import { registerPage } from './views/register.js';
 import { logout } from './api/user.js';
+import { dashboardPage } from './views/dashboard.js';
 // import { preload }  from "./middlewares/preload.js"
 
 
@@ -20,7 +21,7 @@ page(decorateContext) //rendering functionality
 page('/', homePage)
 page('/login', loginPage)
 page('/register', registerPage)
-// page('/catalog', catalogPage)
+page('/dashboard', dashboardPage)
 // page('/create', createPage)
 // page('/catalog/:id', preload, detailsPage)
 
