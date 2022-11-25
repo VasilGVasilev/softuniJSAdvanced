@@ -7,7 +7,7 @@ import * as api from "./api.js";
 // let pageSize = 2;
 
 let endpoints = {
-    // byId: '/data/recipes/',
+    byId: '/data/pets/',
     // create: "/data/recipes",
     // count: "/data/recipes?count",
     // recent: '/data/recipes?select=_id%2Cname%2Cimg&sortBy=_createdOn%20desc&pageSize=3',
@@ -18,13 +18,13 @@ export async function getAll() {
     return await api.get(endpoints.pets)
 }
 
+export async function getById(id) {
+    return api.get(endpoints.byId + id);
+}
 // export async function getRecent() {
 //     return api.get(endpoints.recent)
 // }
 
-// export async function getById(id) {
-//     return api.get(endpoints.byId + id);
-// }
 
 // export async function getAll(page = 1) {
 //     const recipes, count] = await Promise.all([
