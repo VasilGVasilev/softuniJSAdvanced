@@ -8,7 +8,7 @@ export async function preload(ctx, next){
 
     // if such, add key value boolean to pet object
     if(ctx.user && ctx.user._id == pet._ownerId){
-        pet._isOwner = true;
+        pet._isOwner = true; // this added key:value is only stored locally in pet, it does not update the server DB!
     }
     next()
 }

@@ -1,6 +1,9 @@
 import { html, nothing } from "../../node_modules/lit-html/lit-html.js"
+import { getUserData } from "../util.js"
 
-const detailsTemplate = (pet) => html `
+
+
+const detailsTemplate = (pet, logged) => html `
 <section id="detailsPage">
     <div class="details">
         <div class="animalPic">
@@ -14,7 +17,7 @@ const detailsTemplate = (pet) => html `
                 <h4>Weight: ${pet.weight}</h4>
                 <h4 class="donation">Donation: 0$</h4>
             </div>
-            ${pet._isOwner == true ? userTempalte(pet) : nothing}
+            ${ logged == null ? nothing : loggedTemplate(pet)}
             <!-- if there is no registered user, do not display div-->
 
         </div>
@@ -22,16 +25,25 @@ const detailsTemplate = (pet) => html `
 </section>
 `
 
-const userTempalte = (pet) => html`
-            <div class="actionBtn">
-                <!--(Bonus Part) Only for no creator and user  <a href="#" class="donate">Donate</a>-->
-                <!-- Only for registered user and creator of the pets-->
-                <a href="/edit/${pet._id}" class="edit">Edit</a>
-                <a href="/delete/${pet._id}" class="remove">Delete</a>
-            </div>
+const loggedTemplate = (pet) => html`
+    <div class="actionBtn">
+        ${pet._isOwner == true ? creatorTemplate(pet) : userTemplate()}
+    </div>
 `
+
+const userTemplate = () => html`
+    <a href="#" class="donate">Donate</a>
+`
+
+const creatorTemplate = (pet) => html`
+    <a href="/edit/${pet._id}" class="edit">Edit</a>
+    <a href="/delete/${pet._id}" class="remove">Delete</a>
+`
+
 
 export async function detailsPage(ctx){
     const pet = ctx.pet; //done in preload
-    ctx.render(detailsTemplate(pet))
+    let logged = getUserData(); //returns null or other thus the checker -> ${ logged == null ? nothing : loggedTemplate(pet)}
+    ctx.render(detailsTemplate(pet, logged))
 }
+
