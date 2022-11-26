@@ -15,7 +15,7 @@ let endpoints = {
 }
 
 export async function getAll() {
-    return await api.get(endpoints.pets)
+    return api.get(endpoints.pets)
 }
 
 export async function getById(id) {

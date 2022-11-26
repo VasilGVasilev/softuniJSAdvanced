@@ -41,7 +41,7 @@ async function onSubmit(ctx, data, event){
         if(data.name.length == 0 || data.breed.length == 0 || data.age.length == 0 || data.weight.length == 0 || data.image.length == 0){
             throw new Error('No empty fields!')
         }
-        let id = ctx.pet._id;
+        let id = ctx.pet._id; // no need for await, fetch done in preload
 
         let result = await petService.putById(id, {
             name: data.name, 
@@ -50,7 +50,6 @@ async function onSubmit(ctx, data, event){
             weight: data.weight, 
             image: data.image
         });
-        event.target.reset();
         ctx.page.redirect(`/details/${result._id}`)
 
     } catch (error) {
@@ -60,6 +59,6 @@ async function onSubmit(ctx, data, event){
 }
 
 export async function editPage(ctx){
-    const pet = await ctx.pet; //done in preload
+    const pet = ctx.pet; // no need for await, fetch done in preload
     ctx.render(editTemplate(pet, createSubmitHandler(ctx, onSubmit)))
 }
