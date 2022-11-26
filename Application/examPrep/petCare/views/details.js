@@ -10,7 +10,7 @@ const detailsTemplate = (pet) => html `
             <div class="animalInfo">
                 <h1>Name: ${pet.name}</h1>
                 <h3>Breed: ${pet.breed}</h3>
-                <h4>Age: ${pet.age} years</h4>
+                <h4>Age: ${pet.age}</h4>
                 <h4>Weight: ${pet.weight}</h4>
                 <h4 class="donation">Donation: 0$</h4>
             </div>

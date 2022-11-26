@@ -11,6 +11,7 @@ import { registerPage } from './views/register.js';
 import { logout } from './api/user.js';
 import { dashboardPage } from './views/dashboard.js';
 import { preload }  from "./middlewares/preload.js"
+import { editPage } from './views/edit.js';
 
 
 
@@ -23,7 +24,8 @@ page('/login', loginPage)
 page('/register', registerPage)
 page('/dashboard', dashboardPage)
 // page('/create', createPage)
-page('/dashboard/:id', preload, detailsPage)
+page('/details/:id', preload, detailsPage)
+page('/edit/:id', preload, editPage)
 
 page('/logout', logout)
 

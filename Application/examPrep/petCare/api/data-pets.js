@@ -11,7 +11,7 @@ let endpoints = {
     // create: "/data/recipes",
     // count: "/data/recipes?count",
     // recent: '/data/recipes?select=_id%2Cname%2Cimg&sortBy=_createdOn%20desc&pageSize=3',
-    pets: `/data/pets?sortBy=_createdOn%20desc&distinct=name`,
+    pets: `/data/pets?sortBy=_createdOn%20desc&distinct=name`
 }
 
 export async function getAll() {
@@ -20,6 +20,10 @@ export async function getAll() {
 
 export async function getById(id) {
     return api.get(endpoints.byId + id);
+}
+
+export async function putById(id, data) {
+    return api.put(endpoints.byId + id, data);
 }
 // export async function getRecent() {
 //     return api.get(endpoints.recent)
