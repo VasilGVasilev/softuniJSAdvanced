@@ -25,6 +25,13 @@ export async function getById(id) {
 export async function putById(id, data) {
     return api.put(endpoints.byId + id, data);
 }
+
+export async function delById(ctx) {
+    const id = ctx.params.id;
+    await api.del(endpoints.byId + id);
+    ctx.page.redirect('/')
+}
+
 // export async function getRecent() {
 //     return api.get(endpoints.recent)
 // }

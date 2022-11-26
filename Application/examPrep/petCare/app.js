@@ -12,6 +12,7 @@ import { logout } from './api/user.js';
 import { dashboardPage } from './views/dashboard.js';
 import { preload }  from "./middlewares/preload.js"
 import { editPage } from './views/edit.js';
+import { delById } from './api/data-pets.js';
 
 
 
@@ -26,7 +27,7 @@ page('/dashboard', dashboardPage)
 // page('/create', createPage)
 page('/details/:id', preload, detailsPage)
 page('/edit/:id', preload, editPage)
-
+page('/delete/:id', delById)
 page('/logout', logout)
 
 page.start();

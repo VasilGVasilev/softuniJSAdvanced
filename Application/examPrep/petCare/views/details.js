@@ -27,7 +27,7 @@ const userTempalte = (pet) => html`
                 <!--(Bonus Part) Only for no creator and user  <a href="#" class="donate">Donate</a>-->
                 <!-- Only for registered user and creator of the pets-->
                 <a href="/edit/${pet._id}" class="edit">Edit</a>
-                <a href="#" class="remove">Delete</a>
+                <a href="/delete/${pet._id}" class="remove">Delete</a>
             </div>
 `
 

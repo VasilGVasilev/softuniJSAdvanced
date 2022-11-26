@@ -1,3 +1,5 @@
+
+
 // Authentication module
 export function getUserData() {
     return JSON.parse(localStorage.getItem('user'))
@@ -27,3 +29,4 @@ export function createSubmitHandler(ctx, handler) {
         handler(ctx, formData, event)
     }
 }
+
