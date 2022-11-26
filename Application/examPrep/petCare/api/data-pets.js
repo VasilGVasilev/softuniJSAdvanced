@@ -8,7 +8,6 @@ import * as api from "./api.js";
 
 let endpoints = {
     byId: '/data/pets/',
-    // create: "/data/recipes",
     // count: "/data/recipes?count",
     // recent: '/data/recipes?select=_id%2Cname%2Cimg&sortBy=_createdOn%20desc&pageSize=3',
     pets: `/data/pets?sortBy=_createdOn%20desc&distinct=name`
@@ -32,6 +31,9 @@ export async function delById(ctx) {
     ctx.page.redirect('/')
 }
 
+export async function create(data) {
+    return api.post(endpoints.byId, data)
+}
 // export async function getRecent() {
 //     return api.get(endpoints.recent)
 // }
@@ -47,8 +49,4 @@ export async function delById(ctx) {
 //         recipes,
 //         pages: Math.ceil(count / pageSize)
 //     }
-// }
-
-// export async function create(data) {
-//     return api.post(endpoints.create, data)
 // }

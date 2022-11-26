@@ -19,7 +19,8 @@ export async function register(email, password) {
     return user;
 }
 
-export function logout() {
+export function logout(ctx) {
     api.get(endpoints.logout)
     clearUserData()
+    ctx.page.redirect('/')
 }
