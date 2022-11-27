@@ -1,9 +1,10 @@
 import { html, nothing } from "../../node_modules/lit-html/lit-html.js"
+import { getPetDonation } from "../api/data-pets.js"
 import { getUserData } from "../util.js"
 
 
 
-const detailsTemplate = (pet, logged) => html `
+const detailsTemplate = (pet, logged, donation) => html `
 <section id="detailsPage">
     <div class="details">
         <div class="animalPic">
@@ -15,11 +16,10 @@ const detailsTemplate = (pet, logged) => html `
                 <h3>Breed: ${pet.breed}</h3>
                 <h4>Age: ${pet.age}</h4>
                 <h4>Weight: ${pet.weight}</h4>
-                <h4 class="donation">Donation: 0$</h4>
+                <h4 class="donation">Donation: ${donation}$</h4>
             </div>
             ${ logged == null ? nothing : loggedTemplate(pet)}
             <!-- if there is no registered user, do not display div-->
-
         </div>
     </div>
 </section>
@@ -44,6 +44,6 @@ const creatorTemplate = (pet) => html`
 export async function detailsPage(ctx){
     const pet = ctx.pet; //done in preload
     let logged = getUserData(); //returns null or other thus the checker -> ${ logged == null ? nothing : loggedTemplate(pet)}
-    ctx.render(detailsTemplate(pet, logged))
+    let donation = await getPetDonation(pet._id);
+    ctx.render(detailsTemplate(pet, logged, donation))
 }
-
