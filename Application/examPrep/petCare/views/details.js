@@ -4,7 +4,7 @@ import { donate, getDonations, getOwnDonation } from "../api/donations.js"
 import { getUserData } from "../util.js"
 
 
-const detailsTemplate = (pet, logged, donation) => html `
+const detailsTemplate = (pet, logged, donation, hasDonation, onClick) => html `
 <section id="detailsPage">
     <div class="details">
         <div class="animalPic">
@@ -18,32 +18,48 @@ const detailsTemplate = (pet, logged, donation) => html `
                 <h4>Weight: ${pet.weight}</h4>
                 <h4 class="donation">Donation: ${donation}$</h4>
             </div>
-            ${ logged == false ? nothing : loggedTemplate(pet)}
+            ${ logged == false ? nothing : loggedTemplate(pet, hasDonation, onClick)}
             <!-- if there is no registered user, do not display div-->
         </div>
     </div>
 </section>
 `
 
-const loggedTemplate = (pet) => html`
+const loggedTemplate = (pet, hasDonation, onClick) => html`
     <div class="actionBtn">
-        ${pet._isOwner == true ? creatorTemplate(pet) : userTemplate()}
+        ${pet._isOwner == true ? creatorTemplate(pet) : userTemplate(hasDonation, onClick)}
     </div>
 `
 
-const userTemplate = () => html`
-    <a href="#" class="donate">Donate</a>
+const userTemplate = (hasDonation, onClick) => html`
+    ${hasDonation == 0 ? clickTemplate(onClick) : nothing}
 `
+
+
 
 const creatorTemplate = (pet) => html`
     <a href="/edit/${pet._id}" class="edit">Edit</a>
     <a href="/delete/${pet._id}" class="remove">Delete</a>
 `
-
+const clickTemplate = (onClick) => html`
+    <a @click=${onClick} href="javascript:void(0)" class="donate">Donate</a>
+`
 
 export async function detailsPage(ctx){
     const pet = ctx.pet; //done in preload
+    let id = pet._id;
     let logged = Boolean(ctx.user); // Boolean if we have ctx.user which is false => noting : true => loggedTemplate || fetch user request returns null or other thus the checker -> ${ logged == null ? nothing : loggedTemplate(pet)}
-    let donation = await getDonations(pet._id)
-    ctx.render(detailsTemplate(pet, logged, donation))
+    let donation = await getDonations(id);
+    let hasDonation;
+    if(logged){
+        hasDonation = await getOwnDonation(id, ctx.user._id)
+    } else {
+        hasDonation == 0;
+    }
+    donation *= 100;
+    ctx.render(detailsTemplate(pet, logged, donation, hasDonation, onClick))
+    async function onClick() {
+        await donate(id);
+        ctx.page.redirect('/details/' + id);
+    }
 }
