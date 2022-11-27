@@ -1,7 +1,7 @@
 import { html, nothing } from "../../node_modules/lit-html/lit-html.js"
-import { getPetDonation } from "../api/data-pets.js"
-import { getUserData } from "../util.js"
+import { donate, getDonations, getOwnDonation } from "../api/donations.js"
 
+import { getUserData } from "../util.js"
 
 
 const detailsTemplate = (pet, logged, donation) => html `
@@ -18,7 +18,7 @@ const detailsTemplate = (pet, logged, donation) => html `
                 <h4>Weight: ${pet.weight}</h4>
                 <h4 class="donation">Donation: ${donation}$</h4>
             </div>
-            ${ logged == null ? nothing : loggedTemplate(pet)}
+            ${ logged == false ? nothing : loggedTemplate(pet)}
             <!-- if there is no registered user, do not display div-->
         </div>
     </div>
@@ -43,7 +43,7 @@ const creatorTemplate = (pet) => html`
 
 export async function detailsPage(ctx){
     const pet = ctx.pet; //done in preload
-    let logged = getUserData(); //returns null or other thus the checker -> ${ logged == null ? nothing : loggedTemplate(pet)}
-    let donation = await getPetDonation(pet._id);
+    let logged = Boolean(ctx.user); // Boolean if we have ctx.user which is false => noting : true => loggedTemplate || fetch user request returns null or other thus the checker -> ${ logged == null ? nothing : loggedTemplate(pet)}
+    let donation = await getDonations(pet._id)
     ctx.render(detailsTemplate(pet, logged, donation))
 }

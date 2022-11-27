@@ -35,15 +35,6 @@ export async function create(data) {
     return api.post(endpoints.byId, data)
 }
 
-export async function getPetDonation(id){
-    let endpoint = `/data/donation?where=petId%3D%22${id}%22&distinct=_ownerId&count`
-    return await api.get(endpoint);
-}
-
-export async function postDonation(data){
-    let endpoint = `/data/donation`
-    return await api.post(endpoint, data);
-}
 
 // export async function getRecent() {
 //     return api.get(endpoints.recent)
