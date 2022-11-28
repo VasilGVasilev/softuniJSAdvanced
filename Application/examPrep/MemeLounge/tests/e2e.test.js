@@ -3,7 +3,7 @@ const { chromium } = require('playwright-chromium');
 const { expect } = require('chai');
 
 const host = 'http://localhost:3000'; // Application host (NOT service host - that can be anything)
-const DEBUG = false;
+const DEBUG = true;
 
 const mockData = require('./mock-data.json');
 const endpoints = {
@@ -588,7 +588,7 @@ describe('E2E tests', function () {
 
         });
 
-        it('check profile page for "No memes in database." - with 0 memes [ 2.5 Points ]', async () => {
+        it.only('check profile page for "No memes in database." - with 0 memes [ 2.5 Points ]', async () => {
             await page.waitForTimeout(300);
 
             await page.route('**' + endpoints.profile, route => route.fulfill(json([])));
