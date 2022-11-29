@@ -2,8 +2,9 @@ import * as bookService from "../api/data-books.js"
 
 // returns the object with added info
 export async function preload(ctx, next){
-    const bookId  = ctx.params.id;
+    const bookId = ctx.params.id;
     const book = await bookService.getById(bookId);
+
     ctx.book = book;
 
     // if such, add key value boolean to pet object

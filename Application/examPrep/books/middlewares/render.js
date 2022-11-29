@@ -1,6 +1,6 @@
 import { render } from '../node_modules/lit-html/lit-html.js';
 
-let root = document.querySelector('main#site-content')
+let root = document.getElementById('site-content')
 
 function ctxRender(content) {
     render(content, root)

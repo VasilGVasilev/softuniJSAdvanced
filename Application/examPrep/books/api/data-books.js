@@ -7,10 +7,15 @@ import * as api from "./api.js";
 // disapproving of ownIdFirst and ownIdSecond but working for the exam
 
 let endpoints = {
-    byId: '/data/books/',
+    byId: '/data/books', //note the difference between create needing /data/books and details needing /data/books/
     // count: "/data/recipes?count",
     // recent: '/data/recipes?select=_id%2Cname%2Cimg&sortBy=_createdOn%20desc&pageSize=3',
+    mybooks: (userId) => `/data/books?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`, // follow instructions closely!!!
     books: `/data/books?sortBy=_createdOn%20desc`
+}
+
+export async function getMyBooks(id) {
+    return api.get(endpoints.mybooks(id))
 }
 
 export async function getAll() {
@@ -18,11 +23,11 @@ export async function getAll() {
 }
 
 export async function getById(id) {
-    return api.get(endpoints.byId + id);
+    return api.get(endpoints.byId + '/' + id);
 }
 
 export async function putById(id, data) {
-    return api.put(endpoints.byId + id, data);
+    return api.put(endpoints.byId + '/' + id, data);
 }
 
 export async function create(data) {

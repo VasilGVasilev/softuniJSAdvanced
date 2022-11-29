@@ -13,8 +13,8 @@ export async function login(email, password) {
     return user;
 }
 
-export async function register(username, email, password, gender) {
-    let user = await api.post(endpoints.register, {username, email, password, gender})
+export async function register(email, password) {
+    let user = await api.post(endpoints.register, {email, password})
     setUserData(user)
     return user;
 }
@@ -22,5 +22,5 @@ export async function register(username, email, password, gender) {
 export function logout(ctx) {
     api.get(endpoints.logout)
     clearUserData()
-    ctx.page.redirect('/')
+    ctx.page.redirect('/dashboard')
 }
