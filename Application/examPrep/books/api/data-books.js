@@ -10,8 +10,11 @@ let endpoints = {
     byId: '/data/books', //note the difference between create needing /data/books and details needing /data/books/
     // count: "/data/recipes?count",
     // recent: '/data/recipes?select=_id%2Cname%2Cimg&sortBy=_createdOn%20desc&pageSize=3',
+    books: `/data/books?sortBy=_createdOn%20desc`,
+    likes: '/data/likes',
+    bookLikes: (bookId) => `/data/likes?where=bookId%3D%22${bookId}%22&distinct=_ownerId&count`,
     mybooks: (userId) => `/data/books?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`, // follow instructions closely!!!
-    books: `/data/books?sortBy=_createdOn%20desc`
+    liked: (bookId, userId) => `/data/likes?where=bookId%3D%22${bookId}%22%20and%20_ownerId%3D%22${userId}%22&count`
 }
 
 export async function getMyBooks(id) {
@@ -34,6 +37,18 @@ export async function create(data) {
     return api.post(endpoints.byId, data)
 }
 
+export async function getLikes(bookId) {
+    return api.get(endpoints.bookLikes(bookId));
+    
+}
+
+export async function postLike(bookId){
+    return api.post(endpoints.likes, bookId)
+}
+
+export async function liked(bookId, userId){
+    return api.get(endpoints.liked(bookId, userId))
+}
 
 // export async function getRecent() {
 //     return api.get(endpoints.recent)
