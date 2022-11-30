@@ -1,6 +1,7 @@
 import { html } from "../node_modules/lit-html/lit-html.js"
 import * as memeService from "../api/data-memes.js"
 import { createSubmitHandler } from "../util.js";
+import { notify } from "../notify.js";
 
 
 const editTemplate = (meme, onSubmit) => html`
@@ -37,7 +38,7 @@ async function onSubmit(ctx, data, event){
         ctx.page.redirect(`/details/${result._id}`)
 
     } catch (error) {
-        alert(error.message)
+        notify(error.message)
     }
 
 }

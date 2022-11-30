@@ -3,7 +3,7 @@ const { chromium } = require('playwright-chromium');
 const { expect } = require('chai');
 
 const host = 'http://localhost:3000'; // Application host (NOT service host - that can be anything)
-const DEBUG = true;
+const DEBUG = false;
 
 const mockData = require('./mock-data.json');
 const endpoints = {
@@ -588,7 +588,7 @@ describe('E2E tests', function () {
 
         });
 
-        it.only('check profile page for "No memes in database." - with 0 memes [ 2.5 Points ]', async () => {
+        it('check profile page for "No memes in database." - with 0 memes [ 2.5 Points ]', async () => {
             await page.waitForTimeout(300);
 
             await page.route('**' + endpoints.profile, route => route.fulfill(json([])));
@@ -623,7 +623,7 @@ describe('E2E tests', function () {
     });
 
     describe('BONUS: Notifications [ 10 Points ]', () => {
-        it('Login notification with invalid data [ 2.5 Points ]', async () => {
+        it.only('Login notification with invalid data [ 2.5 Points ]', async () => {
             const endpoint = '**' + endpoints.login;
             let called = false;
             page.route(endpoint, route => called = true);
@@ -645,7 +645,7 @@ describe('E2E tests', function () {
 
         });
 
-        it('Register notification with invalid data [ 2.5 Points ]', async () => {
+        it.only('Register notification with invalid data [ 2.5 Points ]', async () => {
             const endpoint = '**' + endpoints.register;
             let called = false;
             page.route(endpoint, route => called = true);
@@ -666,7 +666,7 @@ describe('E2E tests', function () {
             expect(notification).to.be.true;
         });
 
-        it('Create notification with invalid data [ 2.5 Points ]', async () => {
+        it.only('Create notification with invalid data [ 2.5 Points ]', async () => {
             // Login user
             const email = 'peter@abv.bg';
             const password = '123456';
@@ -709,7 +709,7 @@ describe('E2E tests', function () {
             expect(notification).to.be.true;
         });
         
-        it('Edit notification with invalid data [ 2.5 Points ]', async () => {
+        it.only('Edit notification with invalid data [ 2.5 Points ]', async () => {
             // Login user
             const email = 'peter@abv.bg';
             const password = '123456';

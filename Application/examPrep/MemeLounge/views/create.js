@@ -1,6 +1,7 @@
 import { html } from "../node_modules/lit-html/lit-html.js"
 import { createSubmitHandler } from "../util.js";
 import * as memeService from "../api/data-memes.js"
+import { notify } from "../notify.js";
 
 const createTemplate = (onSubmit) => html`
     <section id="create-meme">
@@ -34,7 +35,7 @@ async function onSubmit(ctx, data, event){
         ctx.page.redirect(`/catalog`)
 
     } catch (error) {
-        alert(error.message)
+        notify(error.message)
     }
 
 }

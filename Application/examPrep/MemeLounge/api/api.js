@@ -1,3 +1,4 @@
+import { notify } from "../notify.js";
 import { clearUserData, getAccessToken } from "../util.js";
 
 const host = 'http://localhost:3030'
@@ -34,7 +35,7 @@ async function request(method, url, data) {
             return response.json()
         }
     } catch (error) {
-        alert(error.message)
+        notify(error.message)
         throw error; //if not - catch will throw an error for request() but you want to pass it on to the calling function get(), post() etc.
     }
 }
